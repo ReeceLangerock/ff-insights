@@ -2,14 +2,17 @@ import React from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import League from "../components/League";
 
-const IndexPage = () => (
+const Leagues = () => 
+{
+    return(
+    
   <Layout>
-    <SEO title="Home" />
-  
+    <SEO title="Sign Up" />
+   Sign up
   </Layout>
-)
+)}
 
-export default IndexPage
+export default Leagues
