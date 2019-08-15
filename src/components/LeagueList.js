@@ -15,9 +15,9 @@ export default class LeagueList extends Component {
   renderLeagues() {
     return this.state.leagues.map(league => {
       return (
-        <LeagueItem to={`/league/?id=${league._id}`} key={league._id}>
-          <div>{league.name}</div>
-          <div>{league._id}</div>
+        <LeagueItem to={`/league/?id=${league.leagueId}`} key={league.leagueId}>
+          <div>{league.leagueName}</div>
+          <div>{league.leagueId}</div>
         </LeagueItem>
       )
     })
