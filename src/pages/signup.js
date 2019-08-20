@@ -1,18 +1,16 @@
 import React from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import League from "../components/League";
+import SignupLayout from "../components/Signup/SignupLayout"
 
-const Leagues = () => 
-{
-    return(
-    
-  <Layout>
-    <SEO title="Sign Up" />
-   Sign up
-  </Layout>
-)}
+const Leagues = () => {
+  return (
+    <Layout>
+      <SEO title="Sign Up" />
+      <SignupLayout />
+    </Layout>
+  )
+}
 
 export default Leagues

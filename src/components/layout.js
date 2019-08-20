@@ -11,7 +11,7 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 import "./layout.css"
-import styled from 'styled-components'
+import styled from "styled-components"
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -26,12 +26,9 @@ const Layout = ({ children }) => {
   return (
     <Container>
       <Header siteTitle={data.site.siteMetadata.title} />
-      
-        <Main>{children}</Main>
-        <Footer>
-          © {new Date().getFullYear()} 
-          
-        </Footer>
+
+      <Main>{children}</Main>
+      <Footer>© {new Date().getFullYear()}</Footer>
     </Container>
   )
 }
@@ -41,7 +38,7 @@ Layout.propTypes = {
 }
 
 const Container = styled.div`
-margin: 0 auto;
+  margin: 0 auto;
   width: 800px;
   background: #fff;
   min-height: 500px;
@@ -52,11 +49,12 @@ margin: 0 auto;
 `
 
 const Footer = styled.footer`
-align-self: center;
+  align-self: center;
 `
 
 const Main = styled.main`
-flex: 1;
+  flex: 1;
+padding: 0 1rem;
 `
 
 export default Layout
