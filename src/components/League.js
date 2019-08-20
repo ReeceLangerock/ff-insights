@@ -33,7 +33,7 @@ export default class League extends Component {
     return insights.map(insight => {
       return (
         <Matchup
-          key={insight._id}
+          key={insight.matchupId}
           to={`/insight/?id=${id}&matchup=${insight.matchupId}`}
         >
           {insight.homeTeam.name} vs {insight.awayTeam.name}

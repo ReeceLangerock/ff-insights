@@ -7,6 +7,23 @@ const ROOT_URL =
 export const getLeagueList = async () => {
   try {
     const response = await axios.get(`${ROOT_URL}/leagues`)
+    return response.data.response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
+export const addLeague = async (body) => {
+  try {
+    const response = await axios.post(`${ROOT_URL}/leagues`, {
+      body
+      // email,
+      // SWID,
+      // ESPN_S2,
+      // isPrivate,
+      // leagueId
+    })
     return response
   } catch (error) {
     console.error(error)

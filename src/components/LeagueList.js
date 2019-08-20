@@ -10,7 +10,7 @@ export default class LeagueList extends Component {
   }
   async componentDidMount() {
     const response = await getLeagueList()
-    this.setState({ leagues: response.data.leagues })
+    this.setState({ leagues: response.leagues })
   }
   renderLeagues() {
     return this.state.leagues.map(league => {
