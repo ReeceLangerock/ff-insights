@@ -13,17 +13,12 @@ export const getLeagueList = async () => {
   }
 }
 
-
-export const addLeague = async (body) => {
+export const addLeague = async body => {
   try {
     const response = await axios.post(`${ROOT_URL}/leagues`, {
-      body
-      // email,
-      // SWID,
-      // ESPN_S2,
-      // isPrivate,
-      // leagueId
+      ...body
     })
+    console.log(response)
     return response
   } catch (error) {
     console.error(error)
