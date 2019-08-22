@@ -21,7 +21,7 @@ export const addLeague = async body => {
         ...body,
       })
     )
-    return response.data.response
+    return response.data
   } catch (error) {
     console.error(error)
   }
