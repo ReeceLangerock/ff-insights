@@ -54,7 +54,7 @@ const Footer = styled.footer`
 
 const Main = styled.main`
   flex: 1;
-padding: 0 1rem;
+  padding: 0 1rem;
 `
 
 export default Layout

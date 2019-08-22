@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import styled from "styled-components"
-import NLP from "./../../lib/NLP"
+// import NLP from "./../../lib/NLP"
 import {
   getWorstUnderperformingStarter,
   getNumUnderachievers,
@@ -9,10 +9,9 @@ import {
 export default class Regrets extends Component {
   state = {}
 
-  async componentWillReceiveProps(newProps) {
-    console.log(newProps)
-    if (this.props.parsedInsight !== newProps.parsedInsight) {
-      this.generateText(newProps.parsedInsight)
+  async componentDidUpdate(prevProps) {
+    if (this.props.parsedInsight !== prevProps.parsedInsight) {
+      this.generateText(this.props.parsedInsight)
     }
   }
 
@@ -47,28 +46,26 @@ export default class Regrets extends Component {
   }
 
   async getWorstBenchDecision(players) {
-    let highestRankedPlayer = players[0]
-    let benchPlayers = players.filter(p => p.lineupPosition === "Bench")
-    players.forEach(p => {
-      if (
-        p.lineupPosition !== "Bench" &&
-        p.positionalPointsRank < highestRankedPlayer.positionalPointsRank
-      ) {
-        highestRankedPlayer = p
-      }
-    })
-
-    const text = `With ${highestRankedPlayer.points} points, ${
-      highestRankedPlayer.fullName
-    } had the ${NLP.highLowHelper(
-      highestRankedPlayer.positionalPointsRank
-    )} score for a ${highestRankedPlayer.position} in the league this week.`
-
-    const newUsedPlayers = [...this.state.usedPlayers, highestRankedPlayer.id]
-    this.setState({
-      highestRankedPlayerText: text,
-      usedPlayers: newUsedPlayers,
-    })
+    //   let highestRankedPlayer = players[0]
+    //   let benchPlayers = players.filter(p => p.lineupPosition === "Bench")
+    //   players.forEach(p => {
+    //     if (
+    //       p.lineupPosition !== "Bench" &&
+    //       p.positionalPointsRank < highestRankedPlayer.positionalPointsRank
+    //     ) {
+    //       highestRankedPlayer = p
+    //     }
+    //   })
+    //   const text = `With ${highestRankedPlayer.points} points, ${
+    //     highestRankedPlayer.fullName
+    //   } had the ${NLP.highLowHelper(
+    //     highestRankedPlayer.positionalPointsRank
+    //   )} score for a ${highestRankedPlayer.position} in the league this week.`
+    //   const newUsedPlayers = [...this.state.usedPlayers, highestRankedPlayer.id]
+    //   this.setState({
+    //     highestRankedPlayerText: text,
+    //     usedPlayers: newUsedPlayers,
+    //   })
   }
 }
 

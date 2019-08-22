@@ -22,9 +22,9 @@ export default class League extends Component {
     this.setState({ insights })
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.props.path.location.search !== newProps.path.location.search) {
-      this.parseUrl(newProps.path.location.search)
+  componentDidUpdate(prevProps) {
+    if (this.props.path.location.search !== prevProps.path.location.search) {
+      this.parseUrl(this.props.path.location.search)
     }
   }
 

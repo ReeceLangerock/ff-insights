@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { Component } from "react"
+import styled from "styled-components"
 
 export default class Records extends Component {
   render() {
     if (!this.props.data) {
-      return <Container/>
+      return <Container />
     }
-    const { homeTeam, awayTeam } = this.props.data;
+    const { homeTeam, awayTeam } = this.props.data
     return (
       <Container>
         <TeamInfo>
-          <img src="" />
+          <img src="" alt="home team logo" />
           <span>{homeTeam.name} </span>
           <Record>
             ({homeTeam.wins}-{homeTeam.losses})
@@ -18,6 +18,7 @@ export default class Records extends Component {
           <b>{homeTeam.score}</b>
         </TeamInfo>
         <TeamInfo>
+          <img src="" alt="away team logo" />
           <span>{awayTeam.name}</span>
           <Record>
             ({awayTeam.wins}-{awayTeam.losses})
@@ -25,7 +26,7 @@ export default class Records extends Component {
           <b>{awayTeam.score}</b>
         </TeamInfo>
       </Container>
-    );
+    )
   }
 }
 
@@ -34,15 +35,15 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 2rem;
   font-size: 1.1rem;
-`;
+`
 
 const TeamInfo = styled.div`
   display: flex;
   span {
     margin-right: 0.5rem;
   }
-`;
+`
 const Record = styled.div`
   color: gray;
   margin-right: 0.5rem;
-`;
+`

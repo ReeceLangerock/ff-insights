@@ -16,10 +16,10 @@ export default class SmoothMoves extends Component {
     }
   }
 
- async componentWillReceiveProps(newProps){
-    const { parsedInsight } = newProps
+ async componentDidUpdate(prevProps){
+    const { parsedInsight } = this.props
 
-    if(this.props.parsedInsight !== newProps.parsedInsight){
+    if(parsedInsight !== prevProps.parsedInsight){
       await this.gethighestRankedPlayerText(parsedInsight.winningRoster)
       await this.getOverAchieverByPercent(parsedInsight.winningRoster);
       await this.getOverAchieverByAmount(parsedInsight.winningRoster);
