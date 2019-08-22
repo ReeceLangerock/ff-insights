@@ -16,10 +16,9 @@ export const getLeagueList = async () => {
 export const addLeague = async body => {
   try {
     const response = await axios.post(`${ROOT_URL}/leagues`, {
-      ...body
+      ...body,
     })
-    console.log(response)
-    return response
+    return response.data.response
   } catch (error) {
     console.error(error)
   }

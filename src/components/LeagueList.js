@@ -26,7 +26,7 @@ export default class LeagueList extends Component {
   render() {
     return (
       <div>
-        <h1>Leagues</h1>
+        <h1>Recently Added Leagues</h1>
         <div>{this.renderLeagues()} </div>
       </div>
     )
@@ -37,7 +37,7 @@ const LeagueItem = styled(Link)`
   display: flex;
   border: 1px solid gray;
   padding: 1rem;
-  margin: 0 0.5rem 1rem 0.5rem;
+  margin:  1rem 0;
   text-decoration: none;
   justify-content: space-between;
 `
