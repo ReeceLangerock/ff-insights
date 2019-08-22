@@ -10,7 +10,7 @@ export default class Records extends Component {
     return (
       <Container>
         <TeamInfo>
-          <img src="" alt="home team logo" />
+          {/* <img src="" alt="home team logo" /> */}
           <span>{homeTeam.name} </span>
           <Record>
             ({homeTeam.wins}-{homeTeam.losses})
@@ -18,7 +18,7 @@ export default class Records extends Component {
           <b>{homeTeam.score}</b>
         </TeamInfo>
         <TeamInfo>
-          <img src="" alt="away team logo" />
+          {/* <img src="" alt="away team logo" /> */}
           <span>{awayTeam.name}</span>
           <Record>
             ({awayTeam.wins}-{awayTeam.losses})
