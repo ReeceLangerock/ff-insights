@@ -24,16 +24,19 @@ Header.defaultProps = {
 const Container = styled.header`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background: #e6e6e6;
+  padding: 1rem;
+  background: #c83802;
 `
 
 const StyledLink = styled(Link)`
-
+color: #fff;
 margin-right: 10px;
 text-decoration: none;
 font-weight: bold;
-font-size: 1rem;
+font-size: 1.2rem;
 `
 
 export default Header
+// 32E875 - success
+// 0B162A - navy
+// c83802 - orange

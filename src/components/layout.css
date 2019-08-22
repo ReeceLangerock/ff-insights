@@ -2,7 +2,9 @@ html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  background: #f7f7f7;
+  background: #E8E9EB;
+
+  --border-radius-s: 3px;
 }
 body {
   margin: 0;
