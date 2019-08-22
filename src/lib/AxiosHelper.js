@@ -15,9 +15,12 @@ export const getLeagueList = async () => {
 
 export const addLeague = async body => {
   try {
-    const response = await axios.post(`${ROOT_URL}/leagues`, {
-      ...body,
-    })
+    const response = await axios.post(
+      `${ROOT_URL}/leagues`,
+      JSON.stringify({
+        ...body,
+      })
+    )
     return response.data.response
   } catch (error) {
     console.error(error)
@@ -35,7 +38,7 @@ export const getInsight = async (id, matchup) => {
 
 export const getInsights = async id => {
   try {
-    const response = await axios.get(`${ROOT_URL}/insights/${id}`)
+    const response = await axios.get(`${ROOT_URL}/insights?id=${id}`)
     return response.data.insights
   } catch (error) {
     console.error(error)
