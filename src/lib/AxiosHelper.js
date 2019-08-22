@@ -7,7 +7,7 @@ const ROOT_URL =
 export const getLeagueList = async () => {
   try {
     const response = await axios.get(`${ROOT_URL}/leagues`)
-    return response.data.response
+    return response.data
   } catch (error) {
     console.error(error)
   }
