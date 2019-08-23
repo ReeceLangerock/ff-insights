@@ -27,15 +27,6 @@ export const addLeague = async body => {
   }
 }
 
-export const getInsight = async (id, matchup) => {
-  try {
-    const response = await axios.get(`${ROOT_URL}/insights/${id}/${matchup}`)
-    return response.data.insight
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 export const getInsights = async id => {
   try {
     const response = await axios.get(`${ROOT_URL}/insights?id=${id}`)

@@ -1,13 +1,15 @@
 import React, { Component } from "react"
-import { getInsight } from "../../lib/AxiosHelper"
+import { getInsights } from "../../lib/AxiosHelper"
 import Header from "./Header"
 import SmoothMoves from "./SmoothMoves"
 import Records from "./Records"
 import Regrets from "./Regrets"
 import WhatIf from "./WhatIf"
 import GameNotes from "./GameNotes"
+import { connect } from "react-redux"
+import * as actions from "./../../redux/actions/insightsActions"
 
-export default class League extends Component {
+class Insight extends Component {
   state = {
     id: "",
     insight: undefined,
@@ -18,20 +20,35 @@ export default class League extends Component {
     if (url) {
       const id = url.split("id=")[1].split("&")[0]
       const matchup = url.split("matchup=")[1]
-      this.setState({ matchup, id })
+      this.props.setLeagueId(id)
+      this.props.setMatchup(matchup)
       return { id, matchup }
     }
   }
   async componentDidMount() {
     const { id, matchup } = this.parseUrl(this.props.path.location.search)
-    const insight = await getInsight(id, matchup)
-    await this.getMatchupData(insight)
-    this.setState({ insight })
+    if (!this.props.insights[id]) {
+      const insights = await getInsights(id)
+      this.props.addInsight(insights, id)
+    } else {
+      await this.getMatchupData(this.props.insights[id][matchup])
+    }
   }
+  // async componentDidMount() {
+  //   if (!this.props.data) {
+  //     const { id, matchup } = this.parseUrl(this.props.path.location.search)
+  //     const insight = await getInsight(id, matchup)
+  //     this.setState({ insight })
+  //   }
+  // }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.path.location.search !== prevProps.path.location.search) {
-      this.parseUrl(this.props.path.location.search)
+  async componentDidUpdate(prevProps) {
+    const { path, insights, leagueId, matchup } = this.props
+    if (path.location.search !== prevProps.path.location.search) {
+      this.parseUrl(path.location.search)
+    }
+    if (insights[leagueId] !== prevProps.insights[leagueId]) {
+      await this.getMatchupData(insights[leagueId][matchup])
     }
   }
 
@@ -52,6 +69,8 @@ export default class League extends Component {
       data.homeTeam.score > data.awayTeam.score
         ? data.awayTeamRoster
         : data.homeTeamRoster
+
+    console.log()
     this.setState({
       ...this.state,
       parsedInsight: { winningTeam, losingTeam, winningRoster, losingRoster },
@@ -59,7 +78,13 @@ export default class League extends Component {
   }
 
   render() {
-    const { insight, parsedInsight } = this.state
+    const { insights, leagueId, matchup } = this.props
+    const insight = insights[leagueId] ? insights[leagueId][matchup] : undefined
+    const { parsedInsight } = this.state
+    console.log(insight)
+    if (!insight || !parsedInsight) {
+      return null
+    }
     return (
       <div>
         <Header data={insight} />
@@ -72,3 +97,13 @@ export default class League extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  insights: state.insightsReducer.insights,
+  leagueId: state.insightsReducer.leagueId,
+  matchup: state.insightsReducer.matchup,
+})
+
+export default connect(
+  mapStateToProps,
+  actions
+)(Insight)

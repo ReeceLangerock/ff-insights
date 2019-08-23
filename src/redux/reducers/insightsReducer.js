@@ -1,18 +1,29 @@
 export const insightsReducer = (
   state = {
-    activeLeague: undefined,
+    leagueId: undefined,
+    matchup: undefined,
     insights: {},
   },
   action
 ) => {
   switch (action.type) {
-    case "HANDLE_LEAGUE_ADDITION_ATTEMPT":
+    case "ADD_INSIGHT":
       return {
         ...state,
-        addition: {
-          ...state.addition,
-          ...action.data,
+        insights: {
+          ...state.insights,
+          [action.leagueId]: action.insights,
         },
+      }
+    case "SET_LEAGUE_ID":
+      return {
+        ...state,
+        leagueId: action.leagueId,
+      }
+    case "SET_MATCHUP":
+      return {
+        ...state,
+        matchup: action.matchup,
       }
 
     default:

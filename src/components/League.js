@@ -2,8 +2,10 @@ import React, { Component } from "react"
 import { Link } from "gatsby"
 import { getInsights } from "./../lib/AxiosHelper"
 import styled from "styled-components"
+import { connect } from "react-redux"
+import * as actions from "./../redux/actions/insightsActions"
 
-export default class League extends Component {
+class League extends Component {
   state = {
     id: "",
     insights: [],
@@ -12,14 +14,14 @@ export default class League extends Component {
   parseUrl = url => {
     if (url) {
       const id = url.split("id=")[1].split("&")[0]
-      this.setState({ id })
+      this.props.setLeagueId(id)
       return id
     }
   }
   async componentDidMount() {
     const id = this.parseUrl(this.props.path.location.search)
     const insights = await getInsights(id)
-    this.setState({ insights })
+    this.props.addInsight(insights, id)
   }
 
   componentDidUpdate(prevProps) {
@@ -29,12 +31,14 @@ export default class League extends Component {
   }
 
   renderInsights() {
-    const { insights, id } = this.state
-    return insights.map(insight => {
+    const { insights, leagueId } = this.props
+    return (insights[leagueId] || []).map(insight => {
       return (
         <Matchup
           key={insight.matchupId}
-          to={`/insight/?id=${id}&matchup=${insight.matchupId}`}
+          to={`/insight/?id=${leagueId}&matchup=${insight.matchupId}`}
+          data={insight}
+          matchupid={insight.matchupId}
         >
           {insight.homeTeam.name} vs {insight.awayTeam.name}
         </Matchup>
@@ -51,6 +55,15 @@ export default class League extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  insights: state.insightsReducer.insights,
+  leagueId: state.insightsReducer.leagueId,
+})
+
+export default connect(
+  mapStateToProps,
+  actions
+)(League)
 
 const Matchup = styled(Link)`
   display: flex;

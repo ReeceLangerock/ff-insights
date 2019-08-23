@@ -1,18 +1,19 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import { connect } from "react-redux"
 
-export default class Header extends Component {
+class Header extends Component {
   render() {
-    const { data } = this.props
-    if (!data) {
+    const { insights, leagueId } = this.props
+    if (!insights) {
       return <Container/>
     }
     return (
       <>
         <Container>
-          Week {data.week}{" "}
-          <Link to={`/league/?id=${data.leagueId}`}>Back to league</Link>
+          Week {insights[leagueId].week}{" "}
+          <Link to={`/league/?id=${leagueId}`}>Back to league</Link>
         </Container>
 
         <Title>{this.renderHeaderText()}</Title>
@@ -38,6 +39,16 @@ export default class Header extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  insights: state.insightsReducer.insights,
+  leagueId: state.insightsReducer.leagueId,
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(Header)
+
 const Container = styled.div`
   font-size: 1.1rem;
   text-align: left;
@@ -54,3 +65,4 @@ const Title = styled.h1`
   padding: 1.5rem 1rem;
   margin: 0;
 `
+
