@@ -1,32 +1,25 @@
-import React, { Component } from "react"
+import React from "react"
 import { Link } from "gatsby"
-import { getInsights } from "./../lib/AxiosHelper"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import * as actions from "./../redux/actions/insightsActions"
+import InsightLoader from "./Insight/InsightLoader"
 
-class League extends Component {
+class League extends React.Component {
   state = {
     id: "",
     insights: [],
   }
-
-  parseUrl = url => {
-    if (url) {
-      const id = url.split("id=")[1].split("&")[0]
-      this.props.setLeagueId(id)
-      return id
+  componentDidMount() {
+    const { leagueId, insights, path } = this.props
+    if (!leagueId || !insights[leagueId]) {
+      InsightLoader.load(path)
     }
-  }
-  async componentDidMount() {
-    const id = this.parseUrl(this.props.path.location.search)
-    const insights = await getInsights(id)
-    this.props.addInsight(insights, id)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.path.location.search !== prevProps.path.location.search) {
-      this.parseUrl(this.props.path.location.search)
+      InsightLoader.parseUrl(this.props.path)
     }
   }
 

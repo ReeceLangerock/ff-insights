@@ -8,6 +8,7 @@ import WhatIf from "./WhatIf"
 import GameNotes from "./GameNotes"
 import { connect } from "react-redux"
 import * as actions from "./../../redux/actions/insightsActions"
+import InsightLoader from "./InsightLoader"
 
 class Insight extends Component {
   state = {
@@ -16,31 +17,14 @@ class Insight extends Component {
     parsedInsight: undefined,
   }
 
-  parseUrl = url => {
-    if (url) {
-      const id = url.split("id=")[1].split("&")[0]
-      const matchup = url.split("matchup=")[1]
-      this.props.setLeagueId(id)
-      this.props.setMatchup(matchup)
-      return { id, matchup }
-    }
-  }
   async componentDidMount() {
-    const { id, matchup } = this.parseUrl(this.props.path.location.search)
-    if (!this.props.insights[id]) {
-      const insights = await getInsights(id)
-      this.props.addInsight(insights, id)
+    const { leagueId, insights, path, matchup } = this.props
+    if (!leagueId || !insights[leagueId] || !matchup) {
+      InsightLoader.load(path)
     } else {
-      await this.getMatchupData(this.props.insights[id][matchup])
+      await this.getMatchupData(insights[leagueId][matchup])
     }
   }
-  // async componentDidMount() {
-  //   if (!this.props.data) {
-  //     const { id, matchup } = this.parseUrl(this.props.path.location.search)
-  //     const insight = await getInsight(id, matchup)
-  //     this.setState({ insight })
-  //   }
-  // }
 
   async componentDidUpdate(prevProps) {
     const { path, insights, leagueId, matchup } = this.props
@@ -53,6 +37,9 @@ class Insight extends Component {
   }
 
   async getMatchupData(data) {
+    if (!data) {
+      return
+    }
     const winningTeam =
       data.homeTeam.score > data.awayTeam.score
         ? data.homeTeam.name
@@ -70,7 +57,6 @@ class Insight extends Component {
         ? data.awayTeamRoster
         : data.homeTeamRoster
 
-    console.log()
     this.setState({
       ...this.state,
       parsedInsight: { winningTeam, losingTeam, winningRoster, losingRoster },
@@ -81,7 +67,6 @@ class Insight extends Component {
     const { insights, leagueId, matchup } = this.props
     const insight = insights[leagueId] ? insights[leagueId][matchup] : undefined
     const { parsedInsight } = this.state
-    console.log(insight)
     if (!insight || !parsedInsight) {
       return null
     }
