@@ -48,7 +48,7 @@ export default class Form extends Component {
           <FormItem
             label="League Id"
             infoText="The Id for your league can be found in the ESPN website url when you are on your leagues page."
-            infoImageSrc="http://d16nyafvsvwqce.cloudfront.net/leagueIdExample.png"
+            infoImageSrc="https://d16nyafvsvwqce.cloudfront.net/leagueIdExample.png"
             type="text"
             value={form.leagueId}
             pattern=".{0}|.{4,}"

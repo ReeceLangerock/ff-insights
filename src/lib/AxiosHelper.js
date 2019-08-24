@@ -30,7 +30,7 @@ export const addLeague = async body => {
 export const getInsights = async id => {
   try {
     const response = await axios.get(`${ROOT_URL}/insights?id=${id}`)
-    return response.data.insights
+    return response.data[0].insights
   } catch (error) {
     console.error(error)
   }

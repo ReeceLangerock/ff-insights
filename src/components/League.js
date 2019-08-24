@@ -12,14 +12,16 @@ class League extends React.Component {
   }
   componentDidMount() {
     const { leagueId, insights, path } = this.props
+    InsightLoader.parseUrl(path)
     if (!leagueId || !insights[leagueId]) {
-      InsightLoader.load(path)
+      InsightLoader.load()
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.path.location.search !== prevProps.path.location.search) {
-      InsightLoader.parseUrl(this.props.path)
+    const { path } = this.props
+    if (path.location.search !== prevProps.path.location.search) {
+      InsightLoader.parseUrl(path)
     }
   }
 

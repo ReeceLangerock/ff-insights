@@ -6,6 +6,7 @@ const InsightLoader = (function() {
   return {
     parseUrl(url) {
       if (url) {
+        url = url.location.search
         if (url.includes("id=")) {
           const id = url.split("id=")[1].split("&")[0]
           store.dispatch(actions.setLeagueId(id))
@@ -16,9 +17,8 @@ const InsightLoader = (function() {
         }
       }
     },
-    async load(path) {
-      this.parseUrl(path.location.search)
-      const { leagueId, matchup, insights } = store.getState().insightsReducer
+    async load() {
+      const { leagueId, insights } = store.getState().insightsReducer
       if (!insights[leagueId]) {
         const insights = await getInsights(leagueId)
         store.dispatch(actions.addInsight(insights, leagueId))

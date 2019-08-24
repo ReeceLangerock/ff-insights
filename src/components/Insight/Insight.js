@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { getInsights } from "../../lib/AxiosHelper"
 import Header from "./Header"
 import SmoothMoves from "./SmoothMoves"
 import Records from "./Records"
@@ -19,20 +18,25 @@ class Insight extends Component {
 
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
+    InsightLoader.parseUrl(path)
     if (!leagueId || !insights[leagueId] || !matchup) {
-      InsightLoader.load(path)
+      InsightLoader.load()
     } else {
-      await this.getMatchupData(insights[leagueId][matchup])
+      await this.getMatchupData(insights[leagueId][matchup - 1])
     }
   }
 
   async componentDidUpdate(prevProps) {
     const { path, insights, leagueId, matchup } = this.props
     if (path.location.search !== prevProps.path.location.search) {
-      this.parseUrl(path.location.search)
+      InsightLoader.parseUrl(path)
     }
-    if (insights[leagueId] !== prevProps.insights[leagueId]) {
-      await this.getMatchupData(insights[leagueId][matchup])
+    if (
+      leagueId &&
+      matchup &&
+      insights[leagueId] !== prevProps.insights[leagueId]
+    ) {
+      await this.getMatchupData(insights[leagueId][matchup - 1])
     }
   }
 
@@ -65,7 +69,9 @@ class Insight extends Component {
 
   render() {
     const { insights, leagueId, matchup } = this.props
-    const insight = insights[leagueId] ? insights[leagueId][matchup] : undefined
+    const insight = insights[leagueId]
+      ? insights[leagueId][matchup - 1]
+      : undefined
     const { parsedInsight } = this.state
     if (!insight || !parsedInsight) {
       return null
