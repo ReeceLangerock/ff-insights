@@ -8,10 +8,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
+import Container from "@material-ui/core/Container"
 import Header from "./header"
 import "./layout.css"
 import styled from "styled-components"
+import { styled as MUIStyled } from "@material-ui/styles"
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -24,12 +25,12 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <Container>
+    <StyledContainer maxWidth="md">
       <Header siteTitle={data.site.siteMetadata.title} />
 
       <Main>{children}</Main>
       <Footer>© {new Date().getFullYear()}</Footer>
-    </Container>
+    </StyledContainer>
   )
 }
 
@@ -37,16 +38,13 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const Container = styled.div`
-  margin: 0 auto;
-  width: 800px;
-  background: #fff;
-  min-height: 500px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  flex-direction: column;
-  display: flex;
-  min-height: 100vh;
-`
+const StyledContainer = MUIStyled(Container)({
+  background: "#fff",
+  minHeight: "100vh",
+  padding: 0,
+  flexDirection: "column",
+  display: "flex",
+})
 
 const Footer = styled.footer`
   align-self: center;

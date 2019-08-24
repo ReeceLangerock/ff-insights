@@ -19,12 +19,20 @@ class Insight extends Component {
 
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
+    // const { parsedInsightCreatedFor } = this.state
+
     await InsightLoader.parseUrl(path)
     if (!leagueId || !insights[leagueId] || !matchup) {
       await InsightLoader.load()
-    } else {
-      await this.getMatchupData(insights[leagueId][matchup - 1])
     }
+    // don't think i need this
+    //  else if (
+    //   !parsedInsightCreatedFor ||
+    //   parsedInsightCreatedFor !== `${leagueId}-${matchup}`
+    // ) {
+    //   console.log("else")
+    //   await this.getMatchupData(insights[leagueId][matchup - 1])
+    // }
   }
 
   async componentDidUpdate(prevProps) {
@@ -43,7 +51,7 @@ class Insight extends Component {
       (!parsedInsightCreatedFor ||
         parsedInsightCreatedFor !== `${leagueId}-${matchup}`)
     ) {
-      this.getMatchupData(insights[leagueId][matchup - 1])
+      await this.getMatchupData(insights[leagueId][matchup - 1])
     }
   }
 

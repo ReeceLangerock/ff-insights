@@ -1,7 +1,10 @@
 import React, { Component } from "react"
 import styled from "styled-components"
+import { styled as MUIStyled } from "@material-ui/styles"
 import { addLeague } from "./../../lib/AxiosHelper"
 import FormItem from "./FormItem"
+import Button from "@material-ui/core/Button"
+
 export default class Form extends Component {
   constructor(props) {
     super(props)
@@ -44,7 +47,7 @@ export default class Form extends Component {
     const { form } = this.state
     return (
       <StyledForm onSubmit={e => this.handleSubmit(e)}>
-        <fieldset>
+        <Fieldset>
           <FormItem
             label="League Id"
             infoText="The Id for your league can be found in the ESPN website url when you are on your leagues page."
@@ -72,7 +75,7 @@ export default class Form extends Component {
             value={form.isPrivate}
             onChange={e => this.handleChange("isPrivate", !form.isPrivate)}
           ></FormItem>
-        </fieldset>
+        </Fieldset>
 
         <Fieldset hidden={form.isPrivate === false}>
           <p>
@@ -115,34 +118,28 @@ export default class Form extends Component {
         </Fieldset>
 
         {this.state.showToast && <div>{this.state.submissionMessage}</div>}
-        <Button type="submit"></Button>
+        <StyledButton variant="contained">Sign Up</StyledButton>
       </StyledForm>
     )
   }
 }
 
 const Fieldset = styled.fieldset`
-  display: ${props => (props.hidden ? "none" : "flex")};
+  display: ${props => (props.hidden ? "none" : "block")};
+  margin: 0 0 1rem 0;
 `
 
-const Button = styled.input`
-  background: #c83802;
-  color: #fff;
-  padding: 0.6rem 1.5rem;
-  border-radius: var(--border-radius-s);
-  outline: none;
-  border: 1px solid hsla(17, 100%, 7%, 1);
-  font-size: 1rem;
-  cursor: pointer;
-  margin-left: auto;
-`
+const StyledButton = MUIStyled(Button)({
+  marginLeft: "auto",
+})
+//   background: #c83802;
+//   color: #fff;
+//   padding: 0.6rem 1.5rem;
+//   border-radius: var(--border-radius-s);
+//   outline: none;
+//   border: 1px solid hsla(17, 100%, 7%, 1);
+//   font-size: 1rem;
+//   cursor: pointer;
+// `
 
-const StyledForm = styled.form`
-  fieldset {
-    flex-direction: column;
-    margin: 0 0 1rem 0;
-    border-radius: var(--border-radius-s);
-    padding: 1rem 0.5rem;
-    border: 1px solid hsla(17, 100%, 7%, 1);
-  }
-`
+const StyledForm = styled.form``
