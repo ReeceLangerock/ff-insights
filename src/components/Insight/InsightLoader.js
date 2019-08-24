@@ -4,7 +4,7 @@ import * as actions from "./../../redux/actions/insightsActions"
 
 const InsightLoader = (function() {
   return {
-    parseUrl(url) {
+    async parseUrl(url) {
       if (url) {
         url = url.location.search
         if (url.includes("id=")) {

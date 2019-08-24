@@ -19,9 +19,16 @@ class League extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { path } = this.props
-    if (path.location.search !== prevProps.path.location.search) {
+    const { path, matchup, leagueId, insights } = this.props
+    if (
+      path.location.search !== prevProps.path.location.search ||
+      matchup !== prevProps.matchup ||
+      leagueId !== prevProps.leagueId
+    ) {
       InsightLoader.parseUrl(path)
+    }
+    if (leagueId && !insights[leagueId]) {
+      InsightLoader.load()
     }
   }
 
@@ -32,7 +39,6 @@ class League extends React.Component {
         <Matchup
           key={insight.matchupId}
           to={`/insight/?id=${leagueId}&matchup=${insight.matchupId}`}
-          data={insight}
           matchupid={insight.matchupId}
         >
           {insight.homeTeam.name} vs {insight.awayTeam.name}

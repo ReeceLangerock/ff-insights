@@ -14,13 +14,14 @@ class Insight extends Component {
     id: "",
     insight: undefined,
     parsedInsight: undefined,
+    parsedInsightCreatedFor: undefined,
   }
 
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
-    InsightLoader.parseUrl(path)
+    await InsightLoader.parseUrl(path)
     if (!leagueId || !insights[leagueId] || !matchup) {
-      InsightLoader.load()
+      await InsightLoader.load()
     } else {
       await this.getMatchupData(insights[leagueId][matchup - 1])
     }
@@ -28,15 +29,21 @@ class Insight extends Component {
 
   async componentDidUpdate(prevProps) {
     const { path, insights, leagueId, matchup } = this.props
+    const { parsedInsightCreatedFor } = this.state
+
     if (path.location.search !== prevProps.path.location.search) {
       InsightLoader.parseUrl(path)
     }
+    if (leagueId && !insights[leagueId]) {
+      InsightLoader.load()
+    }
     if (
-      leagueId &&
+      insights[leagueId] &&
       matchup &&
-      insights[leagueId] !== prevProps.insights[leagueId]
+      (!parsedInsightCreatedFor ||
+        parsedInsightCreatedFor !== `${leagueId}-${matchup}`)
     ) {
-      await this.getMatchupData(insights[leagueId][matchup - 1])
+      this.getMatchupData(insights[leagueId][matchup - 1])
     }
   }
 
@@ -64,6 +71,7 @@ class Insight extends Component {
     this.setState({
       ...this.state,
       parsedInsight: { winningTeam, losingTeam, winningRoster, losingRoster },
+      parsedInsightCreatedFor: `${this.props.leagueId}-${this.props.matchup}`,
     })
   }
 
