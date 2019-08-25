@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { styled as MUIStyled } from "@material-ui/styles"
 import { Snackbar, SnackbarContent } from "@material-ui/core"
-import { Warning, Close, Info, Error, CheckCircle } from "@material-ui/icons"
+import { Error, CheckCircle } from "@material-ui/icons"
 
 export default class Toast extends Component {
   render() {

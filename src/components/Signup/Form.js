@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
 import { addLeague } from "./../../lib/AxiosHelper"
 import FormItem from "./FormItem"

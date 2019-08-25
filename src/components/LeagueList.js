@@ -25,7 +25,7 @@ class LeagueList extends Component {
     return this.props.leagues.map(league => {
       return (
         <LeagueItem key={league.leagueId}>
-          {league.logo && <img></img>}
+          {league.logo && <img alt = "logo for league"></img>}
           <div>
             <h4>League Name</h4>
             <span>{league.leagueName}</span>
@@ -78,13 +78,13 @@ const StyledLink = styled(Link)`
 `
 
 const LeagueItem = MUIStyled(Card)({
-  padding: "2rem 1.5rem",
+  padding: "1rem 1.5rem",
   marginBottom: "1rem",
   alignItems: "center",
   display: "flex",
   justifyContent: "space-between",
   "& h4": {
-    margin: "0 0 .6rem 0",
+    margin: "0 0 .4rem 0",
   },
   "& div": {
     flex: 1,

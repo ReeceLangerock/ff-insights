@@ -1,16 +1,9 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import {Container, Paper} from "@material-ui/core"
+import { Container } from "@material-ui/core"
 import Header from "./header"
-import Footer from './General/Footer'
+import Footer from "./General/Footer"
 import "./layout.css"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
@@ -27,7 +20,6 @@ const Layout = ({ children }) => {
 
   return (
     <StyledContainer maxWidth="md">
-        
       <Header siteTitle={data.site.siteMetadata.title} />
 
       <Main>{children}</Main>
@@ -45,7 +37,6 @@ const StyledContainer = MUIStyled(Container)({
   flexDirection: "column",
   display: "flex",
 })
-
 
 const Main = styled.main`
   flex: 1;

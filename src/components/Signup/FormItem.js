@@ -32,7 +32,7 @@ export default class FormItem extends Component {
           margin="normal"
           variant="outlined"
           pattern={pattern}
-          required
+          required ={required}
         />
       )
     }
