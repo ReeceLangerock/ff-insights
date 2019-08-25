@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import NLP from "./../../lib/NLP"
-import {getFullPositionText} from './../../lib/positionalHelper'
+import { getFullPositionText } from "./../../lib/positionalHelper"
 export default class SmoothMoves extends Component {
   constructor(props) {
     super(props)
@@ -15,18 +15,17 @@ export default class SmoothMoves extends Component {
       usedPlayers: [],
     }
   }
-
- async componentDidUpdate(prevProps){
+  async componentDidMount() {
     const { parsedInsight } = this.props
 
-    if(parsedInsight !== prevProps.parsedInsight){
-      await this.gethighestRankedPlayerText(parsedInsight.winningRoster)
-      await this.getOverAchieverByPercent(parsedInsight.winningRoster);
-      await this.getOverAchieverByAmount(parsedInsight.winningRoster);
-      await this.getHighestPositionalPlayerTexts(parsedInsight.winningRoster);
-      await this.getNumOverachievers(parsedInsight.winningRoster, parsedInsight.winningTeam);
-  
-    }
+    await this.gethighestRankedPlayerText(parsedInsight.winningRoster)
+    await this.getOverAchieverByPercent(parsedInsight.winningRoster)
+    await this.getOverAchieverByAmount(parsedInsight.winningRoster)
+    await this.getHighestPositionalPlayerTexts(parsedInsight.winningRoster)
+    await this.getNumOverachievers(
+      parsedInsight.winningRoster,
+      parsedInsight.winningTeam
+    )
   }
 
   render() {
@@ -56,6 +55,8 @@ export default class SmoothMoves extends Component {
   }
 
   async gethighestRankedPlayerText(players) {
+    console.log("text")
+
     let highestRankedPlayer = players[0]
     players.forEach(p => {
       if (
@@ -70,9 +71,12 @@ export default class SmoothMoves extends Component {
       highestRankedPlayer.fullName
     } had the ${NLP.highLowHelper(
       highestRankedPlayer.positionalPointsRank
-    )} score for a ${getFullPositionText(highestRankedPlayer.position)} in the league this week.`
+    )} score for a ${getFullPositionText(
+      highestRankedPlayer.position
+    )} in the league this week.`
 
     const newUsedPlayers = [...this.state.usedPlayers, highestRankedPlayer.id]
+    console.log(text)
     this.setState({
       highestRankedPlayerText: text,
       usedPlayers: newUsedPlayers,

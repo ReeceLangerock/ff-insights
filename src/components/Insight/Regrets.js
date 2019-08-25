@@ -9,10 +9,8 @@ import {
 export default class Regrets extends Component {
   state = {}
 
-  async componentDidUpdate(prevProps) {
-    if (this.props.parsedInsight !== prevProps.parsedInsight) {
-      this.generateText(this.props.parsedInsight)
-    }
+  async componentDidMount() {
+    this.generateText(this.props.parsedInsight)
   }
 
   async generateText(parsedInsight) {
