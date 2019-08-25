@@ -26,14 +26,21 @@ const Container = styled.header`
   justify-content: space-between;
   padding: 1rem;
   background: #c83802;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+
+  border-bototm-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 `
 
 const StyledLink = styled(Link)`
-color: #fff;
-margin-right: 10px;
-text-decoration: none;
-font-weight: bold;
-font-size: 1.2rem;
+  color: #fff;
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
 `
 
 export default Header

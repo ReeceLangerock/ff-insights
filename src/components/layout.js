@@ -10,6 +10,7 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import {Container, Paper} from "@material-ui/core"
 import Header from "./header"
+import Footer from './General/Footer'
 import "./layout.css"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
@@ -30,7 +31,7 @@ const Layout = ({ children }) => {
       <Header siteTitle={data.site.siteMetadata.title} />
 
       <Main>{children}</Main>
-      <Footer>© {new Date().getFullYear()}</Footer>
+      <Footer></Footer>
     </StyledContainer>
   )
 }
@@ -41,14 +42,10 @@ Layout.propTypes = {
 
 const StyledContainer = MUIStyled(Container)({
   minHeight: "100vh",
-  padding: 0,
   flexDirection: "column",
   display: "flex",
 })
 
-const Footer = styled.footer`
-  align-self: center;
-`
 
 const Main = styled.main`
   flex: 1;
