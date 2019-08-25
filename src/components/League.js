@@ -34,6 +34,9 @@ class League extends React.Component {
 
   renderInsights() {
     const { insights, leagueId } = this.props
+    if(insights[leagueId] && insights[leagueId].status === 'not available'){
+      return <p> No insights</p>
+    }
     return (insights[leagueId] || []).map(insight => {
       return (
         <Matchup
