@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Link } from "gatsby"
 import { getLeagueList } from "./../lib/AxiosHelper"
 import { styled as MUIStyled } from "@material-ui/styles"
-import { Card, Button } from "@material-ui/core"
+import { Card, Button, LinearProgress } from "@material-ui/core"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import * as actions from "./../redux/actions/leagueActions"
@@ -10,15 +10,19 @@ import * as actions from "./../redux/actions/leagueActions"
 class LeagueList extends Component {
   state = {
     leagues: [],
+    loading: true,
   }
   async componentDidMount() {
     if (!this.props.leagues.length) {
       const response = await getLeagueList()
       this.props.saveLeagues(response.leagues)
+      this.setState({ loading: false })
+    } else {
+      this.setState({ loading: false })
     }
   }
   renderLeagues() {
-    return (this.props.leagues || []).map(league => {
+    return this.props.leagues.map(league => {
       return (
         <LeagueItem key={league.leagueId}>
           {league.logo && <img></img>}
@@ -42,6 +46,14 @@ class LeagueList extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <div>
+          <h1>Loading Leagues...</h1>
+          <LinearProgress style={{ marginTop: "2rem" }} />
+        </div>
+      )
+    }
     return (
       <div>
         <h1>Recently Added Leagues</h1>
