@@ -15,7 +15,7 @@ export default class Toast extends Component {
           horizontal: "left",
         }}
         open={this.props.open}
-        autoHideDuration={50000}
+        autoHideDuration={5000}
         onClose={this.props.handleClose}
         ContentProps={{
           "aria-describedby": "message-id",
