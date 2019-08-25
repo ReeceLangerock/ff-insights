@@ -20,8 +20,22 @@ const InsightLoader = (function() {
     async load() {
       const { leagueId, insights } = store.getState().insightsReducer
       if (!insights[leagueId]) {
-        const insights = await getInsights(leagueId)
-        store.dispatch(actions.addInsight(insights, leagueId))
+        try {
+          const insights = await getInsights(leagueId)
+          if (insights) {
+            store.dispatch(actions.addInsight(insights, leagueId))
+          } else {
+            store.dispatch(
+              actions.addInsight({ status: "not available" }, leagueId)
+            )
+          }
+        } catch (e) {
+          store.dispatch(
+            actions.addInsight({ status: "not availabe" }, leagueId)
+          )
+
+          console.log(e)
+        }
       }
     },
   }
