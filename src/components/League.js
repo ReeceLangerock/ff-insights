@@ -1,9 +1,9 @@
 import React from "react"
-import { Link } from "gatsby"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import * as actions from "./../redux/actions/insightsActions"
 import InsightLoader from "./Insight/InsightLoader"
+import Matchup from "./League/Matchup"
 
 class League extends React.Component {
   state = {
@@ -34,18 +34,16 @@ class League extends React.Component {
 
   renderInsights() {
     const { insights, leagueId } = this.props
-    if(insights[leagueId] && insights[leagueId].status === 'not available'){
-      return <p> No insights</p>
+    if (insights[leagueId] && insights[leagueId].status === "not available") {
+      return <div> No insights</div>
     }
     return (insights[leagueId] || []).map(insight => {
       return (
         <Matchup
           key={insight.matchupId}
-          to={`/insight/?id=${leagueId}&matchup=${insight.matchupId}`}
-          matchupid={insight.matchupId}
-        >
-          {insight.homeTeam.name} vs {insight.awayTeam.name}
-        </Matchup>
+          data={insight}
+          leagueId={leagueId}
+        ></Matchup>
       )
     })
   }
@@ -53,8 +51,8 @@ class League extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/league/?id=666&matchup=2">{}</Link>
-        {this.renderInsights()}
+        <h1>Matchups</h1>
+        <MatchupContainer>{this.renderInsights()}</MatchupContainer>
       </div>
     )
   }
@@ -69,11 +67,8 @@ export default connect(
   actions
 )(League)
 
-const Matchup = styled(Link)`
-  display: flex;
-  border: 1px solid gray;
-  padding: 1rem;
-  margin: 0 0.5rem 1rem 0.5rem;
-  text-decoration: none;
-  justify-content: space-between;
+const MatchupContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
 `
