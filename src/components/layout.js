@@ -8,7 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import Container from "@material-ui/core/Container"
+import {Container, Paper} from "@material-ui/core"
 import Header from "./header"
 import "./layout.css"
 import styled from "styled-components"
@@ -26,6 +26,7 @@ const Layout = ({ children }) => {
 
   return (
     <StyledContainer maxWidth="md">
+        
       <Header siteTitle={data.site.siteMetadata.title} />
 
       <Main>{children}</Main>
@@ -39,7 +40,6 @@ Layout.propTypes = {
 }
 
 const StyledContainer = MUIStyled(Container)({
-  background: "#fff",
   minHeight: "100vh",
   padding: 0,
   flexDirection: "column",
@@ -52,7 +52,6 @@ const Footer = styled.footer`
 
 const Main = styled.main`
   flex: 1;
-  padding: 0 1rem;
 `
 
 export default Layout

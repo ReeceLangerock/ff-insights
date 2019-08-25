@@ -1,7 +1,8 @@
 import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import styled from "styled-components"
+import { styled as MUIStyled } from "@material-ui/styles"
+import { Card } from "@material-ui/core"
 
 const IndexPage = () => (
   <Layout>
@@ -12,10 +13,10 @@ const IndexPage = () => (
 
       <p>
         Take your ESPN fantasy football league to the next level with
-        automatically generated matchup analysis and breakdowns. Each week, Insightful will take the
-        results of your matchup and create a report detailing the good and bad
-        decisions you and your opponent made. Trash talk is always better when
-        you have data to back it up.
+        automatically generated matchup analysis and breakdowns. Each week,
+        Insightful will take the results of your matchup and create a report
+        detailing the good and bad decisions you and your opponent made. Trash
+        talk is always better when you have data to back it up.
       </p>
       <p>
         As you can clearly see, this site is very much a work in progress. It is
@@ -31,8 +32,8 @@ const IndexPage = () => (
         your fantasy league each and every week.
       </p>
 
-      <p className ="bold">
-        Questions? Comments? Suggestions? I want to hear from you!{" "}
+      <p>
+        <b>Questions? Comments? Suggestions? I want to hear from you!</b>
       </p>
       <p>
         I'll be setting up a comment or email system sometime in the future, but
@@ -45,22 +46,22 @@ const IndexPage = () => (
 
 export default IndexPage
 
-const Container = styled.div`
-  h1 {
-    margin-bottom: 1rem;
-  }
-  a {
-    font-weight: bold;
-    color: #c83802;
-    text-decoration: none;
-    font-size: 1.2rem;
-    :hover {
-      text-decoration: underline;
-    }
-  }
-  .bold {
-    font-weight: bold;
-  }
-  font-size: 1.1rem;
-  line-height: 1.5;
-`
+const Container = MUIStyled(Card)({
+  padding: "2rem 1.5rem",
+  marginBottom: "1rem",
+  lineHeight: 1.5,
+  fontSize: "1.1rem",
+  marginTop: "1rem",
+  "& h1": {
+    margin: "0 0 1rem 0",
+  },
+  "& a": {
+    fontWweight: "bold",
+    color: "#c83802",
+    textDecoration: "none",
+    fontSize: "1.2rem",
+    ":hover": {
+      textDecoration: "underline",
+    },
+  },
+})
