@@ -13,36 +13,36 @@ export default class FormItem extends Component {
   }
 
   renderInputType() {
-    const { label, value, onChange, type, required, pattern } = this.props
+    const { data, value, onChange, type, required, pattern } = this.props
     if (type === "checkbox") {
       return (
         <FormControlLabel
-          control={<Switch size="large" checked={value} onChange={onChange} />}
-          label={label}
+          control={<Switch size="medium" checked={value} onChange={onChange} />}
+          label={data.label}
           labelPlacement="start"
         ></FormControlLabel>
       )
     } else {
       return (
         <StyledTextField
-          id="outlined-name"
-          label={label}
+          id={data.label}
+          label={data.label}
           value={value}
           onChange={onChange}
           margin="normal"
           variant="outlined"
           pattern={pattern}
-          required={required}
+          required
         />
       )
     }
   }
   render() {
-    const { infoText, infoImageSrc } = this.props
+    const { data } = this.props
     return (
       <Container>
         {this.renderInputType()}
-        {infoText && (
+        {data.text && (
           <>
             <IconButton
               onClick={() => {
@@ -52,14 +52,13 @@ export default class FormItem extends Component {
               <Info />
             </IconButton>
             <InfoContainer hidden={!this.state.infoShown}>
-              {infoText}
-              {infoImageSrc && (
+              {data.text}
+              {data.image && (
                 <>
                   <br />
-                  <img src={infoImageSrc} alt="info instructions" />
+                  <img src={data.image} alt="info instructions" />
                 </>
               )}
-              {/* src/images/leagueIdExample.png */}
             </InfoContainer>
           </>
         )}
