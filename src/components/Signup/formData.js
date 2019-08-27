@@ -23,3 +23,9 @@ export const ESPN_S2 = {
   label: "ESPN_S2",
 }
     
+export const errors = {
+  leagueId: "The League Id entered is invalid",
+  email: 'The email provided is invalid',
+  SWID: 'The entered SWID is too short',
+  ESPN_S2:'The entered ESPN_S2 is too short'
+}

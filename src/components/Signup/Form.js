@@ -5,7 +5,7 @@ import FormItem from "./FormItem"
 import { Button, Card } from "@material-ui/core"
 import Toast from "../General/Toast"
 import Instructions from "./Instructions"
-import { leagueId, email, isPrivate, SWID, ESPN_S2 } from "./formData"
+import { leagueId, email, isPrivate, SWID, ESPN_S2, errors } from "./formData"
 
 export default class Form extends Component {
   constructor(props) {
@@ -19,20 +19,57 @@ export default class Form extends Component {
         SWID: "",
         ESPN_S2: "",
       },
+      error: {},
       showToast: false,
       submissionMessage: "",
       responseType: "",
     }
   }
 
-  async handleSubmit(e) {
-    e.preventDefault()
-    const response = await addLeague(this.state.form)
-
-    let responseType = "error"
-    if (response.statusCode === 200) {
-      responseType = "success"
+  async validateForm() {
+    const { form } = this.state
+    const errors = {
+      leagueId: !(form.leagueId.match(/^\d*$/) && form.leagueId.length > 3),
+      email: !form.email.match(
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      ),
     }
+
+    if (form.isPrivate) {
+      errors.SWID = form.SWID.length <= 5
+      errors.ESPN_S2 = form.ESPN_S2.length <= 5
+    }
+    this.setState({ error: errors })
+    let numErrors = 0
+    Object.keys(errors).forEach(err => {
+      numErrors += errors[err] ? 1 : 0
+    }, 0)
+    return numErrors === 0
+  }
+
+  async handleSubmit(e) {
+    this.setState({
+      showToast: false,
+      submissionMessage: "",
+      error: {},
+    })
+    e.preventDefault()
+    const validationPass = await this.validateForm()
+    let responseType = "error"
+    let response = {}
+    if (validationPass) {
+      response = await addLeague(this.state.form)
+      if (response.statusCode === 200) {
+        responseType = "success"
+      }
+    } else {
+      Object.keys(this.state.error).find(error => {
+        if (this.state.error[error]) {
+          response.body = errors[error]
+        }
+      })
+    }
+
     this.setState({
       showToast: true,
       submissionMessage: response.body || "Unknown error type",
@@ -46,16 +83,16 @@ export default class Form extends Component {
     })
   }
   render() {
-    const { form } = this.state
+    const { form, error } = this.state
     return (
       <div>
-        <FormGroup>
+        <FormGroup style={{ paddingRight: ".5rem" }}>
           <FormItem
             data={leagueId}
             type="text"
             value={form.leagueId}
-            pattern=".{0}|.{4,}"
             required
+            error={error.leagueId}
             onChange={e => this.handleChange("leagueId", e.target.value)}
           ></FormItem>
 
@@ -63,13 +100,13 @@ export default class Form extends Component {
             data={email}
             type="email"
             value={form.email}
-            pattern=".{0}|.{8,}"
+            error={error.email}
             required
             onChange={e => this.handleChange("email", e.target.value)}
           ></FormItem>
 
           <FormItem
-           data = {isPrivate}
+            data={isPrivate}
             type="checkbox"
             value={form.isPrivate}
             onChange={e => this.handleChange("isPrivate", !form.isPrivate)}
@@ -80,20 +117,20 @@ export default class Form extends Component {
           <Instructions />
 
           <FormItem
-           data={SWID}
+            data={SWID}
             type="text"
             value={form.SWID}
             required={form.isPrivate}
-            pattern=".{0}|.{8,}"
+            error={error.SWID}
             onChange={e => this.handleChange("SWID", e.target.value)}
           ></FormItem>
 
           <FormItem
             data={ESPN_S2}
             type="text"
+            error={error.ESPN_S2}
             value={form.ESPN_S2}
             required={form.isPrivate}
-            pattern=".{0}|.{8,}"
             onChange={e => this.handleChange("ESPN_S2", e.target.value)}
           ></FormItem>
         </FormGroup>

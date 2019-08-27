@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
 import IconButton from "@material-ui/core/IconButton"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
+import { FormControlLabel, FormControl } from "@material-ui/core"
 
 import Switch from "@material-ui/core/Switch"
 import TextField from "@material-ui/core/TextField"
@@ -13,7 +13,7 @@ export default class FormItem extends Component {
   }
 
   renderInputType() {
-    const { data, value, onChange, type, required, pattern } = this.props
+    const { data, value, onChange, type, required, pattern, error } = this.props
     if (type === "checkbox") {
       return (
         <FormControlLabel
@@ -31,8 +31,9 @@ export default class FormItem extends Component {
           onChange={onChange}
           margin="normal"
           variant="outlined"
-          pattern={pattern}
-          required ={required}
+          required={required}
+          inputProps={{pattern: pattern}}
+          error={error}
         />
       )
     }
@@ -45,6 +46,7 @@ export default class FormItem extends Component {
         {data.text && (
           <>
             <IconButton
+              style={{ margin: "1rem 0 .5rem .25rem" }}
               onClick={() => {
                 this.setState({ infoShown: !this.state.infoShown })
               }}
