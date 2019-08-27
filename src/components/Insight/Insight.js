@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import { Card } from "@material-ui/core"
+import { styled as MUIStyled } from "@material-ui/styles"
 import Header from "./Header"
 import SmoothMoves from "./SmoothMoves"
 import Records from "./Records"
@@ -8,6 +10,7 @@ import GameNotes from "./GameNotes"
 import { connect } from "react-redux"
 import * as actions from "./../../redux/actions/insightsActions"
 import InsightLoader from "./InsightLoader"
+import Loader from "./../General/Loader"
 
 class Insight extends Component {
   state = {
@@ -15,35 +18,37 @@ class Insight extends Component {
     insight: undefined,
     parsedInsight: undefined,
     parsedInsightCreatedFor: undefined,
+    loading: false,
   }
 
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
-    // const { parsedInsightCreatedFor } = this.state
+    const { parsedInsightCreatedFor, loading } = this.state
 
     await InsightLoader.parseUrl(path)
-    if (!leagueId || !insights[leagueId] || !matchup) {
+    if ((!leagueId || !insights[leagueId] || !matchup) && !loading) {
+      this.setState({ loading: true })
       await InsightLoader.load()
+      this.setState({ loading: false })
+    } else if (
+      !parsedInsightCreatedFor ||
+      parsedInsightCreatedFor !== `${leagueId}-${matchup}`
+    ) {
+      await this.getMatchupData(insights[leagueId][matchup - 1])
     }
-    // don't think i need this
-    //  else if (
-    //   !parsedInsightCreatedFor ||
-    //   parsedInsightCreatedFor !== `${leagueId}-${matchup}`
-    // ) {
-    //   console.log("else")
-    //   await this.getMatchupData(insights[leagueId][matchup - 1])
-    // }
   }
 
   async componentDidUpdate(prevProps) {
     const { path, insights, leagueId, matchup } = this.props
-    const { parsedInsightCreatedFor } = this.state
+    const { parsedInsightCreatedFor, loading } = this.state
 
     if (path.location.search !== prevProps.path.location.search) {
       InsightLoader.parseUrl(path)
     }
-    if (leagueId && !insights[leagueId]) {
-      InsightLoader.load()
+    if (leagueId && !insights[leagueId] && !loading) {
+      this.setState({ loading: true })
+      await InsightLoader.load()
+      this.setState({ loading: false })
     }
     if (
       insights[leagueId] &&
@@ -89,18 +94,22 @@ class Insight extends Component {
       ? insights[leagueId][matchup - 1]
       : undefined
     const { parsedInsight } = this.state
+    if (this.state.loading) {
+      return <Loader text="Loading Insight..." />
+    }
     if (!insight || !parsedInsight) {
       return null
     }
+
     return (
-      <div>
+      <Container>
         <Header data={insight} />
         <Records data={insight} />
         <SmoothMoves data={insight} parsedInsight={parsedInsight} />
         <Regrets data={insight} parsedInsight={parsedInsight} />
         <WhatIf data={insight} parsedInsight={parsedInsight} />
         <GameNotes data={insight} />
-      </div>
+      </Container>
     )
   }
 }
@@ -114,3 +123,7 @@ export default connect(
   mapStateToProps,
   actions
 )(Insight)
+
+const Container = MUIStyled(Card)({
+  margin: "1rem 0",
+})
