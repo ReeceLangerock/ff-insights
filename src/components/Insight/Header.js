@@ -2,18 +2,25 @@ import React, { Component } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import { connect } from "react-redux"
+import { Button } from "@material-ui/core"
+import {ArrowBack} from '@material-ui/icons';
 
 class Header extends Component {
   render() {
     const { insights, leagueId } = this.props
     if (!insights) {
-      return <Container/>
+      return <Container />
     }
     return (
       <>
         <Container>
           Week {insights[leagueId].week}{" "}
-          <Link to={`/league/?id=${leagueId}`}>Back to league</Link>
+          <StyledLink to={`/league/?id=${leagueId}`}>
+            <Button variant="contained" color="primary">
+              <ArrowBack style={{marginRight: '.5rem'}}/>
+              Back to League
+            </Button>
+          </StyledLink>
         </Container>
 
         <Title>{this.renderHeaderText()}</Title>
@@ -50,19 +57,24 @@ export default connect(
 )(Header)
 
 const Container = styled.div`
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   text-align: left;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 
 const Title = styled.h1`
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); 
   padding: 1.5rem 1rem;
   margin: 0;
 `
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`
