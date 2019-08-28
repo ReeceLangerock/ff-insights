@@ -13,13 +13,13 @@ class League extends React.Component {
     loading: false,
   }
   async componentDidMount() {
-    const { leagueId, insights, path } = this.props
+    const { path } = this.props
     InsightLoader.parseUrl(path)
-    if (!leagueId || !insights[leagueId]) {
-      this.setState({ loading: true })
-      await InsightLoader.load()
-      this.setState({ loading: false })
-    }
+    // if (!leagueId || !insights[leagueId]) {
+    //   this.setState({ loading: true })
+    //   await InsightLoader.load()
+    //   this.setState({ loading: false })
+    // }
   }
 
   async componentDidUpdate(prevProps) {

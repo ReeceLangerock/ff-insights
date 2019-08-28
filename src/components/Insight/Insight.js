@@ -23,19 +23,22 @@ class Insight extends Component {
 
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
-    const { parsedInsightCreatedFor, loading } = this.state
-
+    const { parsedInsightCreatedFor } = this.state
     await InsightLoader.parseUrl(path)
-    if ((!leagueId || !insights[leagueId] || !matchup) && !loading) {
-      this.setState({ loading: true })
-      await InsightLoader.load()
-      this.setState({ loading: false })
-    } else if (
-      !parsedInsightCreatedFor ||
-      parsedInsightCreatedFor !== `${leagueId}-${matchup}`
-    ) {
+    // if ((!leagueId || !insights[leagueId] || !matchup) && !loading) {
+    //   this.setState({ loading: true })
+    //   await InsightLoader.load()
+    //   this.setState({ loading: false })
+    // }
+    // if (
+    //   insights[leagueId] &&
+    //   matchup &&
+    //   (!parsedInsightCreatedFor ||
+    //     parsedInsightCreatedFor !== `${leagueId}-${matchup}`)
+    // ) {
+    try {
       await this.getMatchupData(insights[leagueId][matchup - 1])
-    }
+    } catch (e) {}
   }
 
   async componentDidUpdate(prevProps) {
@@ -50,14 +53,19 @@ class Insight extends Component {
       await InsightLoader.load()
       this.setState({ loading: false })
     }
-    if (
-      insights[leagueId] &&
-      matchup &&
-      (!parsedInsightCreatedFor ||
-        parsedInsightCreatedFor !== `${leagueId}-${matchup}`)
-    ) {
-      await this.getMatchupData(insights[leagueId][matchup - 1])
+    if (insights[leagueId] && matchup) {
+      try {
+        await this.getMatchupData(insights[leagueId][matchup - 1])
+      } catch (e) {}
     }
+    // if (
+    //   insights[leagueId] &&
+    //   matchup &&
+    //   (!parsedInsightCreatedFor ||
+    //     parsedInsightCreatedFor !== `${leagueId}-${matchup}`)
+    // ) {
+    //   await this.getMatchupData(insights[leagueId][matchup - 1])
+    // }
   }
 
   async getMatchupData(data) {
