@@ -10,7 +10,9 @@ export default class Records extends Component {
     return (
       <Container>
         <TeamInfo>
-          {/* <img src="" alt="home team logo" /> */}
+          {homeTeam.logoURL && (
+            <Logo src={homeTeam.logoURL} alt="home team logo" />
+          )}
           <span>{homeTeam.name} </span>
           <Record>
             ({homeTeam.wins}-{homeTeam.losses})
@@ -18,7 +20,9 @@ export default class Records extends Component {
           <b>{homeTeam.score}</b>
         </TeamInfo>
         <TeamInfo>
-          {/* <img src="" alt="away team logo" /> */}
+          {awayTeam.logoURL && (
+            <Logo src={awayTeam.logoURL} alt="Away Team Logo" />
+          )}
           <span>{awayTeam.name}</span>
           <Record>
             ({awayTeam.wins}-{awayTeam.losses})
@@ -33,8 +37,9 @@ export default class Records extends Component {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 2rem 1rem;
   font-size: 1.1rem;
+  flex-wrap: wrap;
 `
 
 const TeamInfo = styled.div`
@@ -42,8 +47,16 @@ const TeamInfo = styled.div`
   span {
     margin-right: 0.5rem;
   }
+
 `
 const Record = styled.div`
   color: gray;
   margin-right: 0.5rem;
+`
+const Logo = styled.img`
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  background: #f7f7f7;
+  text-align: center;
 `
