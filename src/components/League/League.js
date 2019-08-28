@@ -78,4 +78,8 @@ const MatchupContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+  @media only screen and (max-width: 680px) {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
 `

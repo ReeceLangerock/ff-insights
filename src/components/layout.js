@@ -36,6 +36,10 @@ const StyledContainer = MUIStyled(Container)({
   minHeight: "100vh",
   flexDirection: "column",
   display: "flex",
+
+  ['@media (max-width:680px)']: { 
+    padding: "0 .5rem"
+  }
 })
 
 const Main = styled.main`
