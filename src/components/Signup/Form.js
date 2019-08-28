@@ -143,6 +143,8 @@ export default class Form extends Component {
         ></Toast>
         <StyledButton
           variant="contained"
+          size="large"
+          style={{hover: {color: 'red'}}}
           onClick={this.handleSubmit.bind(this)}
         >
           Sign Up
@@ -153,6 +155,12 @@ export default class Form extends Component {
 }
 const StyledButton = MUIStyled(Button)({
   marginLeft: "auto",
+  background: 'var(--light-orange)',
+  "&.MuiButtonBase-root:hover":{
+    backgroundColor: "var(--primary-color)"
+  },
+  color: 'white',
+  float: 'right'
 })
 
 const FormGroup = MUIStyled(Card)({

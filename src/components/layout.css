@@ -4,7 +4,10 @@ html {
   -webkit-text-size-adjust: 100%;
   background: #f7f7f8;
 
-  --border-radius-s: 3px;
+  --border-radius-s: 4px;
+  --primary-color: #c83802;
+  --success-color: #7DCE82;
+  --light-orange: #FF8360;
 }
 body {
   margin: 0;

@@ -61,4 +61,5 @@ const Record = styled.div`
   color: gray;
   margin-right: 0.5rem;
   flex: 1;
+  white-space: nowrap;
 `

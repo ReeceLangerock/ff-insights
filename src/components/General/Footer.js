@@ -6,7 +6,7 @@ export default function Footer() {
 
 const Container = styled.footer`
   align-self: center;
-  background: #c83802;
+  background: var(--primary-color);
   display: flex;
   margin-top: 2rem;
   padding: 1rem;
