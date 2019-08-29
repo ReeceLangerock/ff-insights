@@ -62,6 +62,9 @@ export default class Form extends Component {
       if (response.statusCode === 200) {
         responseType = "success"
       }
+      if (response.statusCode === 401) {
+        this.setState({ form: { ...this.state.form, isPrivate: true } })
+      }
     } else {
       Object.keys(this.state.error).find(error => {
         if (this.state.error[error]) {
@@ -144,7 +147,7 @@ export default class Form extends Component {
         <StyledButton
           variant="contained"
           size="large"
-          style={{hover: {color: 'red'}}}
+          style={{ hover: { color: "red" } }}
           onClick={this.handleSubmit.bind(this)}
         >
           Sign Up
@@ -155,12 +158,12 @@ export default class Form extends Component {
 }
 const StyledButton = MUIStyled(Button)({
   marginLeft: "auto",
-  background: 'var(--light-orange)',
-  "&.MuiButtonBase-root:hover":{
-    backgroundColor: "var(--primary-color)"
+  background: "var(--light-orange)",
+  "&.MuiButtonBase-root:hover": {
+    backgroundColor: "var(--primary-color)",
   },
-  color: 'white',
-  float: 'right'
+  color: "white",
+  float: "right",
 })
 
 const FormGroup = MUIStyled(Card)({
