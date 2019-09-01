@@ -11,6 +11,7 @@ import { connect } from "react-redux"
 import * as actions from "./../../redux/actions/insightsActions"
 import InsightLoader from "./InsightLoader"
 import Loader from "./../General/Loader"
+import Charts from "./Charts";
 
 class Insight extends Component {
   state = {
@@ -23,7 +24,7 @@ class Insight extends Component {
 
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
-    const { parsedInsightCreatedFor } = this.state
+    // const { parsedInsightCreatedFor } = this.state
     await InsightLoader.parseUrl(path)
     // if ((!leagueId || !insights[leagueId] || !matchup) && !loading) {
     //   this.setState({ loading: true })
@@ -117,6 +118,7 @@ class Insight extends Component {
         <Regrets data={insight} parsedInsight={parsedInsight} />
         <WhatIf data={insight} parsedInsight={parsedInsight} />
         <GameNotes data={insight} />
+        <Charts data={insight}/>
       </Container>
     )
   }
