@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import styled from "styled-components"
-// import NLP from "./../../lib/NLP"
 import {
   getWorstUnderperformingStarter,
   getNumUnderachievers,
+  getWorstBenchDecision,
 } from "./../../lib/RegretHelper"
 
 export default class Regrets extends Component {
@@ -22,14 +22,14 @@ export default class Regrets extends Component {
 
     data = getWorstUnderperformingStarter(losingRoster, data)
     data = getNumUnderachievers(losingRoster, losingTeam, data)
-
+    data = await getWorstBenchDecision(losingRoster, data)
     this.setState({
       ...data.texts,
     })
   }
 
   render() {
-    const { numUnderachieversText, underachievingStarterByPercent } = this.state
+    const { numUnderachieversText, underachievingStarterByPercent, shouldHaveStartedRB, shouldHaveStartedWR } = this.state
     const { parsedInsight } = this.props
     if (!parsedInsight) {
       return <Container />
@@ -39,31 +39,10 @@ export default class Regrets extends Component {
         <h2>{parsedInsight.losingTeam} Regret Tracker</h2>
         <Text>{numUnderachieversText || ""}</Text>
         <Text>{underachievingStarterByPercent || ""}</Text>
+        <Text>{shouldHaveStartedRB || ""}</Text>
+        <Text>{shouldHaveStartedWR || ""}</Text>
       </Container>
     )
-  }
-
-  async getWorstBenchDecision(players) {
-    //   let highestRankedPlayer = players[0]
-    //   let benchPlayers = players.filter(p => p.lineupPosition === "Bench")
-    //   players.forEach(p => {
-    //     if (
-    //       p.lineupPosition !== "Bench" &&
-    //       p.positionalPointsRank < highestRankedPlayer.positionalPointsRank
-    //     ) {
-    //       highestRankedPlayer = p
-    //     }
-    //   })
-    //   const text = `With ${highestRankedPlayer.points} points, ${
-    //     highestRankedPlayer.fullName
-    //   } had the ${NLP.highLowHelper(
-    //     highestRankedPlayer.positionalPointsRank
-    //   )} score for a ${highestRankedPlayer.position} in the league this week.`
-    //   const newUsedPlayers = [...this.state.usedPlayers, highestRankedPlayer.id]
-    //   this.setState({
-    //     highestRankedPlayerText: text,
-    //     usedPlayers: newUsedPlayers,
-    //   })
   }
 }
 
@@ -73,7 +52,6 @@ const Container = styled.div`
 `
 
 const Text = styled.p`
-  padding-left: 1rem;
   font-size: 14px;
   margin: 0.5rem 0;
 `

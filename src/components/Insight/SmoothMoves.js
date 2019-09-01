@@ -55,8 +55,7 @@ export default class SmoothMoves extends Component {
   }
 
   async gethighestRankedPlayerText(players) {
-    console.log("text")
-
+    
     let highestRankedPlayer = players[0]
     players.forEach(p => {
       if (
@@ -76,7 +75,6 @@ export default class SmoothMoves extends Component {
     )} in the league this week.`
 
     const newUsedPlayers = [...this.state.usedPlayers, highestRankedPlayer.id]
-    console.log(text)
     this.setState({
       highestRankedPlayerText: text,
       usedPlayers: newUsedPlayers,
@@ -218,7 +216,6 @@ const Container = styled.div`
 `
 
 const Text = styled.p`
-  padding-left: 1rem;
   font-size: 14px;
   margin: 0.5rem 0;
 `
