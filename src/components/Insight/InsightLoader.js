@@ -8,14 +8,17 @@ const InsightLoader = (function() {
     async parseUrl(url) {
       if (url) {
         url = url.location.search
+        let id
+        let matchup
         if (url.includes("id=")) {
-          const id = url.split("id=")[1].split("&")[0]
+          id = url.split("id=")[1].split("&")[0]
           store.dispatch(actions.setLeagueId(id))
         }
         if (url.includes("matchup=")) {
-          const matchup = url.split("matchup=")[1]
+          matchup = url.split("matchup=")[1]
           store.dispatch(actions.setMatchup(matchup))
         }
+        return { id, matchup }
       }
     },
     async load() {
@@ -24,7 +27,9 @@ const InsightLoader = (function() {
         try {
           const insights = await getInsights(leagueId)
           if (insights) {
-          getLeaguewideInsights(insights)
+            const { topStarters, topBench } = getLeaguewideInsights(insights)
+            store.dispatch(actions.addTopStarters(topStarters, leagueId))
+            store.dispatch(actions.addTopBench(topBench, leagueId))
             store.dispatch(actions.addInsight(insights, leagueId))
           } else {
             store.dispatch(
