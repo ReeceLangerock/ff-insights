@@ -25,11 +25,11 @@ export const getTopAtEachPosition = players => {
 const allFilled = positions =>
   Object.keys(positions).every(p => positions[p] !== null)
 
-export const getLeaguewideInsights = async insights => {
+export const getLeaguewideInsights = insights => {
   const { starters, bench } = parseInsights(insights)
   const topStarters = getTopAtEachPosition(starters)
   const topBench = getTopAtEachPosition(bench)
-  console.log(topStarters, topBench)
+  return { topStarters, topBench }
 }
 
 const parseInsights = insights => {

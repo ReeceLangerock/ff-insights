@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
 import IconButton from "@material-ui/core/IconButton"
-import { FormControlLabel, FormControl } from "@material-ui/core"
+import { FormControlLabel } from "@material-ui/core"
 
 import Switch from "@material-ui/core/Switch"
 import TextField from "@material-ui/core/TextField"
@@ -32,7 +32,7 @@ export default class FormItem extends Component {
           margin="normal"
           variant="outlined"
           required={required}
-          inputProps={{pattern: pattern}}
+          inputProps={{ pattern: pattern }}
           error={error}
         />
       )

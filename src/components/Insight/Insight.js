@@ -18,7 +18,6 @@ class Insight extends Component {
     id: "",
     insight: undefined,
     parsedInsight: undefined,
-    parsedInsightCreatedFor: undefined,
     loading: false,
   }
 
@@ -32,7 +31,7 @@ class Insight extends Component {
 
   async componentDidUpdate(prevProps) {
     const { path, insights, leagueId, matchup } = this.props
-    const { parsedInsightCreatedFor, loading } = this.state
+    const {loading } = this.state
 
     if (path.location.search !== prevProps.path.location.search) {
       InsightLoader.parseUrl(path)
@@ -73,7 +72,6 @@ class Insight extends Component {
     this.setState({
       ...this.state,
       parsedInsight: { winningTeam, losingTeam, winningRoster, losingRoster },
-      parsedInsightCreatedFor: `${this.props.leagueId}-${this.props.matchup}`,
     })
   }
 

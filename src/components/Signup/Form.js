@@ -66,9 +66,9 @@ export default class Form extends Component {
         this.setState({ form: { ...this.state.form, isPrivate: true } })
       }
     } else {
-      Object.keys(this.state.error).find(error => {
+      response.body = Object.keys(this.state.error).find(error => {
         if (this.state.error[error]) {
-          response.body = errors[error]
+          return errors[error]
         }
       })
     }

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 export default function Footer() {
-  return <Container>© {new Date().getFullYear()}</Container>
+  return <Container>Jetsweep Studios © {new Date().getFullYear()}</Container>
 }
 
 const Container = styled.footer`
