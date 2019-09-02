@@ -5,8 +5,11 @@ import styled from "styled-components"
 
 const Header = ({ siteTitle }) => (
   <Container>
-    <StyledLink to="/">{siteTitle}</StyledLink>
+    <StyledLink className="logo" to="/">
+      {siteTitle}
+    </StyledLink>
     <div>
+      <StyledLink to="league?id=324353">Demo</StyledLink>
       <StyledLink to="/leagues">Leagues</StyledLink>
       <StyledLink to="/signup">Sign Up</StyledLink>
     </div>
@@ -24,22 +27,36 @@ Header.defaultProps = {
 const Container = styled.header`
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  align-items: center;
+  padding: 1.5rem 3rem;
   background: var(--primary-color);
-  font-size: 1.1rem;
   margin-bottom: 1rem;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  @media only screen and (max-width: 500px) {
+    padding: 1.5rem 0.75rem;
+  }
 `
 
 const StyledLink = styled(Link)`
   color: #fff;
-  margin-right: 10px;
+  margin-left: 1.25rem;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  &.logo {
+    font-size: 1.5rem;
+    margin-left: 0;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+
+    &.logo {
+      font-size: 1.25rem;
+    }
+  }
 `
 export default Header
-
