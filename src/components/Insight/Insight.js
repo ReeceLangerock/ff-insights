@@ -11,7 +11,7 @@ import { connect } from "react-redux"
 import * as actions from "./../../redux/actions/insightsActions"
 import InsightLoader from "./InsightLoader"
 import Loader from "./../General/Loader"
-import Charts from "./Charts";
+import Charts from "./Charts"
 
 class Insight extends Component {
   state = {
@@ -24,19 +24,7 @@ class Insight extends Component {
 
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
-    // const { parsedInsightCreatedFor } = this.state
     await InsightLoader.parseUrl(path)
-    // if ((!leagueId || !insights[leagueId] || !matchup) && !loading) {
-    //   this.setState({ loading: true })
-    //   await InsightLoader.load()
-    //   this.setState({ loading: false })
-    // }
-    // if (
-    //   insights[leagueId] &&
-    //   matchup &&
-    //   (!parsedInsightCreatedFor ||
-    //     parsedInsightCreatedFor !== `${leagueId}-${matchup}`)
-    // ) {
     try {
       await this.getMatchupData(insights[leagueId][matchup - 1])
     } catch (e) {}
@@ -59,14 +47,6 @@ class Insight extends Component {
         await this.getMatchupData(insights[leagueId][matchup - 1])
       } catch (e) {}
     }
-    // if (
-    //   insights[leagueId] &&
-    //   matchup &&
-    //   (!parsedInsightCreatedFor ||
-    //     parsedInsightCreatedFor !== `${leagueId}-${matchup}`)
-    // ) {
-    //   await this.getMatchupData(insights[leagueId][matchup - 1])
-    // }
   }
 
   async getMatchupData(data) {
@@ -118,7 +98,7 @@ class Insight extends Component {
         <Regrets data={insight} parsedInsight={parsedInsight} />
         <WhatIf data={insight} parsedInsight={parsedInsight} />
         <GameNotes data={insight} />
-        <Charts data={insight}/>
+        <Charts data={insight} />
       </Container>
     )
   }
