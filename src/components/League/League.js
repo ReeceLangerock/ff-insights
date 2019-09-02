@@ -15,11 +15,7 @@ class League extends React.Component {
   async componentDidMount() {
     const { path } = this.props
     InsightLoader.parseUrl(path)
-    // if (!leagueId || !insights[leagueId]) {
-    //   this.setState({ loading: true })
-    //   await InsightLoader.load()
-    //   this.setState({ loading: false })
-    // }
+    this.setState({ loading: true })
   }
 
   async componentDidUpdate(prevProps) {
@@ -31,15 +27,19 @@ class League extends React.Component {
     ) {
       InsightLoader.parseUrl(path)
     }
-    if (leagueId && !insights[leagueId]) {
-      InsightLoader.load()
+    if (leagueId && !insights[leagueId] && this.state.loading) {
+      await InsightLoader.load()
+      this.setState({ loading: false })
+    }
+    if (leagueId && insights[leagueId] && this.state.loading) {
+      this.setState({ loading: false })
     }
   }
 
   renderInsights() {
     const { insights, leagueId } = this.props
     if (insights[leagueId] && insights[leagueId].status === "not available") {
-      return <div> No insights</div>
+      return <div> No Insights Availble </div>
     }
     return (insights[leagueId] || []).map(insight => {
       return (
@@ -59,6 +59,7 @@ class League extends React.Component {
     return (
       <div>
         <h1>Matchups</h1>
+        <TopPlayers></TopPlayers>
         <MatchupContainer>{this.renderInsights()}</MatchupContainer>
       </div>
     )
@@ -83,3 +84,5 @@ const MatchupContainer = styled.div`
     grid-gap: 0;
   }
 `
+
+const TopPlayers = styled.div``

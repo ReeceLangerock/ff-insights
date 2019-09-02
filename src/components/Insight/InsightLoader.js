@@ -1,6 +1,7 @@
 import { getInsights } from "./../../lib/AxiosHelper"
 import store from "./../../redux/store"
 import * as actions from "./../../redux/actions/insightsActions"
+import { getLeaguewideInsights } from "./../../lib/leagueInsights"
 
 const InsightLoader = (function() {
   return {
@@ -23,6 +24,7 @@ const InsightLoader = (function() {
         try {
           const insights = await getInsights(leagueId)
           if (insights) {
+          getLeaguewideInsights(insights)
             store.dispatch(actions.addInsight(insights, leagueId))
           } else {
             store.dispatch(
