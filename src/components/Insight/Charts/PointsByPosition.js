@@ -1,6 +1,12 @@
 import React from "react"
 import { getPointsByNflPosition } from "./../../../lib/chartDataHelper"
-import { VictoryBar, VictoryGroup, VictoryChart, VictoryLabel } from "victory"
+import {
+  VictoryBar,
+  VictoryGroup,
+  VictoryChart,
+  VictoryLabel,
+  VictoryContainer,
+} from "victory"
 
 export default class PointsByPosition extends React.Component {
   state = {}
@@ -9,9 +15,8 @@ export default class PointsByPosition extends React.Component {
   }
 
   async generateText() {
-    
     const data = await getPointsByNflPosition(this.props.data)
-    this.setState({ 
+    this.setState({
       data,
     })
   }
@@ -39,8 +44,17 @@ export default class PointsByPosition extends React.Component {
   render() {
     if (this.state.data) {
       return (
-        <VictoryChart>
-             <VictoryLabel text="Points by Position" x={225} y={30} textAnchor="middle"/>
+        <VictoryChart
+          containerComponent={
+            <VictoryContainer style={{ touchAction: "auto" }} />
+          }
+        >
+          <VictoryLabel
+            text="Points by Position"
+            x={225}
+            y={30}
+            textAnchor="middle"
+          />
           <VictoryGroup offset={20} colorScale={["red", "blue"]}>
             {this.renderBars()}
           </VictoryGroup>

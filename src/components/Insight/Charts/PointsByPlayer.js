@@ -1,5 +1,6 @@
 import React from "react"
 import { getTopPlayers } from "./../../../lib/chartDataHelper"
+
 import {
   VictoryBar,
   VictoryGroup,
@@ -7,6 +8,7 @@ import {
   VictoryLabel,
   VictoryAxis,
   VictoryPortal,
+  VictoryContainer,
 } from "victory"
 
 export default class PointsByPlayer extends React.Component {
@@ -35,7 +37,12 @@ export default class PointsByPlayer extends React.Component {
     const { data } = this.state
     if (this.state.data) {
       return (
-        <VictoryChart domainPadding={[5, 5]}>
+        <VictoryChart
+          domainPadding={[5, 5]}
+          containerComponent={
+            <VictoryContainer style={{ touchAction: "auto" }} />
+          }
+        >
           <VictoryLabel
             text="Top Scoring Players "
             x={225}
