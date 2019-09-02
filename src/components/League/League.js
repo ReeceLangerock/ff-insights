@@ -5,6 +5,7 @@ import * as actions from "../../redux/actions/insightsActions"
 import InsightLoader from "../Insight/InsightLoader"
 import Matchup from "./Matchup"
 import Loader from "./../General/Loader"
+import LeagueInsights from "./LeagueInsights"
 
 class League extends React.Component {
   state = {
@@ -13,26 +14,23 @@ class League extends React.Component {
     loading: false,
   }
   async componentDidMount() {
-    const { path } = this.props
-    InsightLoader.parseUrl(path)
-    this.setState({ loading: true })
+    const { path, insights } = this.props
+    const { id } = await InsightLoader.parseUrl(path)
+    if (id && !insights[id]) {
+      this.setState({ loading: true })
+      await InsightLoader.load()
+      this.setState({ loading: false })
+    }
   }
 
   async componentDidUpdate(prevProps) {
-    const { path, matchup, leagueId, insights } = this.props
+    const { path, matchup, leagueId } = this.props
     if (
       path.location.search !== prevProps.path.location.search ||
       matchup !== prevProps.matchup ||
       leagueId !== prevProps.leagueId
     ) {
       InsightLoader.parseUrl(path)
-    }
-    if (leagueId && !insights[leagueId] && this.state.loading) {
-      await InsightLoader.load()
-      this.setState({ loading: false })
-    }
-    if (leagueId && insights[leagueId] && this.state.loading) {
-      this.setState({ loading: false })
     }
   }
 
@@ -53,14 +51,19 @@ class League extends React.Component {
   }
 
   render() {
+    const { topStarters, topBench } = this.props
     if (this.state.loading) {
       return <Loader text="Loading Matchups..." />
     }
     return (
       <div>
         <h1>Matchups</h1>
-        <TopPlayers></TopPlayers>
         <MatchupContainer>{this.renderInsights()}</MatchupContainer>
+
+        <LeagueInsights
+          topBench={topBench}
+          topStarters={topStarters}
+        ></LeagueInsights>
       </div>
     )
   }
@@ -68,6 +71,9 @@ class League extends React.Component {
 const mapStateToProps = state => ({
   insights: state.insightsReducer.insights,
   leagueId: state.insightsReducer.leagueId,
+  topStarters:
+    state.insightsReducer.topStarters[state.insightsReducer.leagueId],
+  topBench: state.insightsReducer.topBench[state.insightsReducer.leagueId],
 })
 
 export default connect(
@@ -84,5 +90,3 @@ const MatchupContainer = styled.div`
     grid-gap: 0;
   }
 `
-
-const TopPlayers = styled.div``
