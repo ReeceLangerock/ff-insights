@@ -6,7 +6,7 @@ import { Card } from "@material-ui/core"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title="home" />
 
     <Container>
       <h1>Insightful</h1>

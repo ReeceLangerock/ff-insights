@@ -9,7 +9,7 @@ const Leagues = () =>
     return(
     
   <Layout>
-    <SEO title="LeagueList" />
+    <SEO title="Leagues" />
     <LeagueList />
    
   </Layout>

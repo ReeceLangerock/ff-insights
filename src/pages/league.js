@@ -7,7 +7,7 @@ import League from "../components/League/League"
 const Leagues = props => {
   return (
     <Layout>
-      <SEO title="LeagueList" />
+      <SEO title="League" />
       <League path={props} />
     </Layout>
   )

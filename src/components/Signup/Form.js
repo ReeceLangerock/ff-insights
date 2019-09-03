@@ -66,10 +66,9 @@ export default class Form extends Component {
         this.setState({ form: { ...this.state.form, isPrivate: true } })
       }
     } else {
-      
       Object.keys(this.state.error).forEach(error => {
         if (this.state.error[error]) {
-          response.body =  errors[error]
+          response.body = errors[error]
         }
       })
     }
@@ -116,7 +115,6 @@ export default class Form extends Component {
             onChange={e => this.handleChange("isPrivate", !form.isPrivate)}
           ></FormItem>
         </FormGroup>
-
         <FormGroup hidden={form.isPrivate === false}>
           <Instructions />
 
@@ -137,6 +135,18 @@ export default class Form extends Component {
             required={form.isPrivate}
             onChange={e => this.handleChange("ESPN_S2", e.target.value)}
           ></FormItem>
+
+          <p>
+            * If your league is public but you got an error regarding SWID or
+            ESPN_S2 please wait and try again a bit later, this seems so be an
+            intermittent issue with ESPN
+          </p>
+          <p>
+            <b>
+              * If you run into any issues please contact me! I'll do my best to
+              figure out what went wrong and get your league up and running.
+            </b>
+          </p>
         </FormGroup>
 
         <Toast
