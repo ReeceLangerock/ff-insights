@@ -7,9 +7,9 @@ export default function Footer() {
     <Container>
       <GridContainer>
         <StyledLink to="/">About</StyledLink>
-        <StyledLink to="league?id=324353">Demo</StyledLink>
+        <StyledLink to="/league?id=324353">Demo</StyledLink>
         <StyledLink to="/signup">Sign Up</StyledLink>
-        <StyledLink to="/signup">Contact Us</StyledLink>
+        <StyledA target= "_blank" href = "https://www.reddit.com/r/Insightful_FF/">Contact Us</StyledA>
       </GridContainer>
 
       <Copyright>© {new Date().getFullYear()} Jetsweep Studios</Copyright>
@@ -31,6 +31,17 @@ const GridContainer = styled.div`
 
   @media only screen and (max-width: 600px) {
     grid-template-columns: 1fr 1fr;
+  }
+`
+const StyledA = styled.a`
+ color: hsla(0, 0%, 100%, 0.85);
+  text-decoration: none;
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  :hover {
+    transition: 0.3s ease-in-out;
+    color: hsla(0, 0%, 100%, 1);
   }
 `
 

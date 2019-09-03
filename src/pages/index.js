@@ -14,9 +14,11 @@ const IndexPage = () => (
       <p>
         Take your ESPN fantasy football league to the next level with
         automatically generated matchup analysis and breakdowns. Each week,
-        Insightful will take the results of your matchup and create a report
-        detailing the good and bad decisions you and your opponent made. Trash
-        talk is always better when you have data to back it up.
+        Insightful will take the results from your league and deliver some
+        league-wide insights. A report will be created for each matchup,
+        detailing the good and bad decisions, what-if analysis, game notes and
+        scoring visualization. Trash talk is always better when you have data to
+        back it up.
       </p>
       <p>
         As you can clearly see, this site is very much a work in progress. It is
@@ -26,7 +28,7 @@ const IndexPage = () => (
         site along with the automatically created content.
       </p>
       <p>
-        Much like any fantasy season it will be a bumpy ride. There{" "}
+        Much like any fantasy season, it will be a bumpy ride. There{" "}
         <strike>might</strike> will be bugs and things might not always work as
         they're supposed to, but I will do my best to deliver content to enhance
         your fantasy league each and every week.
@@ -37,7 +39,7 @@ const IndexPage = () => (
       </p>
       <p>
         I'll be setting up a comment or email system sometime in the future, but
-        for now add a post on our reddit channel!{" "}
+        for now, add a post on our reddit channel!{" "}
         <a href="https://www.reddit.com/r/Insightful_FF/">Insightful_FF</a>
       </p>
     </Container>

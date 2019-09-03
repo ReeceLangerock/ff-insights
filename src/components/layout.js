@@ -19,13 +19,11 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <Wrapper>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <StyledContainer maxWidth="md">
-        <Main>{children}</Main>
-      </StyledContainer>
+      <StyledContainer maxWidth="md">{children}</StyledContainer>
       <Footer></Footer>
-    </>
+    </Wrapper>
   )
 }
 
@@ -33,18 +31,18 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const StyledContainer = MUIStyled(Container)({
-  minHeight: "100vh",
-  flexDirection: "column",
-  display: "flex",
+const Wrapper = styled.div`
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  min-height: 100vh;
+`
 
+const StyledContainer = MUIStyled(Container)({
+  flex: "1",
   ["@media (max-width:680px)"]: {
     padding: "0 .5rem",
   },
 })
-
-const Main = styled.main`
-  flex: 1;
-`
 
 export default Layout

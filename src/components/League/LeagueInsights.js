@@ -23,7 +23,8 @@ export default class LeagueInsights extends PureComponent {
             <div className="team">{player.team}</div>
           </Player>
         )
-      }
+      } 
+      return null
     })
   }
   render() {

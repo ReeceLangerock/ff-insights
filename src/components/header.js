@@ -9,7 +9,7 @@ const Header = ({ siteTitle }) => (
       {siteTitle}
     </StyledLink>
     <div>
-      <StyledLink to="league?id=324353">Demo</StyledLink>
+      <StyledLink to="/league?id=324353">Demo</StyledLink>
       <StyledLink to="/leagues">Leagues</StyledLink>
       <StyledLink to="/signup">Sign Up</StyledLink>
     </div>

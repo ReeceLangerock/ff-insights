@@ -4,8 +4,8 @@ export default function Instructions() {
   return (
     <div>
       <p>
-        Unfortunately, for a private league ESPN requires two pieces of data
-        that you'll need to do provide. It requires a little bit of work in the
+        Unfortunately, for a private league, ESPN requires two pieces of data
+        that you'll need to provide. It requires a little bit of work in the
         developer panel of your web browser, but you'll only need to do it once!
         I'll add a detailed walkthrough of this in the future.
       </p>
