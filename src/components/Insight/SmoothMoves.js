@@ -216,6 +216,6 @@ const Container = styled.div`
 `
 
 const Text = styled.p`
-  font-size: 14px;
+  font-size: .95rem;
   margin: 0.5rem 0;
 `

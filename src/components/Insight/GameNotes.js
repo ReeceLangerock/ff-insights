@@ -26,5 +26,7 @@ const Container = styled.div`
   margin: 0;
 `
 const Text = styled.p`
-  padding-left: 1rem;
+ font-size: .95rem;
+ margin: 0.5rem 0;
+
 `

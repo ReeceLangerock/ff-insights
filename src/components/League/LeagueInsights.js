@@ -33,7 +33,7 @@ export default class LeagueInsights extends PureComponent {
           <h1>Top Players</h1>
 
           <PlayerContainer>{this.renderTopPlayers("starters")}</PlayerContainer>
-          <h1>Top Players Left on the Bench</h1>
+          <h1>Top Players on the Bench</h1>
 
           <PlayerContainer>{this.renderTopPlayers("bench")}</PlayerContainer>
         </div>
