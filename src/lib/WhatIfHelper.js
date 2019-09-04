@@ -26,7 +26,6 @@ export default {
   },
 
   generatePointsNeededToLoseToAllText(losingTeam, pointsNeeded) {
-    console.log(parseInt(pointsNeeded))
     let texts
     if (parseInt(pointsNeeded) === 0) {
       texts = [
