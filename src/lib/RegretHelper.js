@@ -41,7 +41,7 @@ export const getWorstBenchDecision = async (players, data) => {
       starters.push(p)
     }
   })
-  let fuckup = {
+  let badChoice = {
     RB: {},
     WR: {},
     TE: {},
@@ -52,27 +52,23 @@ export const getWorstBenchDecision = async (players, data) => {
       topBenchByPos[p.position] &&
       topBenchByPos[p.position].points > p.points
     ) {
-      fuckup[p.position] = topBenchByPos[p.position]
+      badChoice[p.position] = topBenchByPos[p.position]
     }
   })
-  let fuckupText = {}
-  if (fuckup.RB.id) {
-    const P = fuckup.RB
+  const badChoiceText = {}
+  const positions = ['QB', 'RB','WR', 'TE']
+  positions.forEach((pos)=> {
+  if(badChoice[pos].id){
+    const P = badChoice[pos]
     let underachieved = P.points < P.projectedPoints
-    fuckupText.shouldHaveStartedRB = `Should have started ${P.fullName}, who `
-    fuckupText.shouldHaveStartedRB += underachieved
+    badChoiceText[`shouldHaveStarted${pos}`] = `Should have started ${P.fullName}, who `
+    badChoiceText[`shouldHaveStarted${pos}`] += underachieved
       ? `underachieved but still should have been in the starting lineup, scoring ${P.points} points against a projected ${P.projectedPoints} points.`
       : `exceeded his projected ${P.projectedPoints} points, putting up ${P.points} points.`
-  }
-  if (fuckup.WR.id) {
-    const P = fuckup.WR
-    let underachieved = P.points < P.projectedPoints
-    fuckupText.shouldHaveStartedWR = `Should have started ${P.fullName}, who `
-    fuckupText.shouldHaveStartedWR += underachieved
-      ? `underachieved but still should have been in the starting lineup, scoring ${P.points} points against a projected ${P.projectedPoints} points.`
-      : `exceeded his projected ${P.projectedPoints} points, putting up ${P.points} points.`
-  }
-  data.texts = { ...data.texts, ...fuckupText }
+  
+  }})
+
+  data.texts = { ...data.texts, ...badChoiceText }
   return data
 }
 

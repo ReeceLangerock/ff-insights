@@ -29,7 +29,14 @@ export default class Regrets extends Component {
   }
 
   render() {
-    const { numUnderachieversText, underachievingStarterByPercent, shouldHaveStartedRB, shouldHaveStartedWR } = this.state
+    const {
+      numUnderachieversText,
+      shouldHaveStartedTE,
+      shouldHaveStartedQB,
+      underachievingStarterByPercent,
+      shouldHaveStartedRB,
+      shouldHaveStartedWR,
+    } = this.state
     const { parsedInsight } = this.props
     if (!parsedInsight) {
       return <Container />
@@ -39,8 +46,10 @@ export default class Regrets extends Component {
         <h2>{parsedInsight.losingTeam} Regret Tracker</h2>
         <Text>{numUnderachieversText || ""}</Text>
         <Text>{underachievingStarterByPercent || ""}</Text>
+        <Text>{shouldHaveStartedQB || ""}</Text>
         <Text>{shouldHaveStartedRB || ""}</Text>
         <Text>{shouldHaveStartedWR || ""}</Text>
+        <Text>{shouldHaveStartedTE || ""}</Text>
       </Container>
     )
   }
@@ -52,6 +61,6 @@ const Container = styled.div`
 `
 
 const Text = styled.p`
-  font-size: .95rem;
+  font-size: 0.95rem;
   margin: 0.5rem 0;
 `
