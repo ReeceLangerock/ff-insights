@@ -37,17 +37,18 @@ export default class Records extends Component {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 1.5rem 1rem;
   font-size: 1.1rem;
   flex-wrap: wrap;
 `
 
 const TeamInfo = styled.div`
   display: flex;
+  align-items: center;
+  margin-bottom: .5rem;
   span {
     margin-right: 0.5rem;
   }
-
 `
 const Record = styled.div`
   color: gray;
@@ -59,4 +60,5 @@ const Logo = styled.img`
   border-radius: 50%;
   background: #f7f7f7;
   text-align: center;
+  margin-right: .5rem;
 `
