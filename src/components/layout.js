@@ -7,7 +7,7 @@ import Footer from "./General/Footer"
 import "./layout.css"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
-const Layout = ({ children }) => {
+const Layout = ({ children, fullWidth }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -17,11 +17,13 @@ const Layout = ({ children }) => {
       }
     }
   `)
-
   return (
     <Wrapper>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <StyledContainer maxWidth="md">{children}</StyledContainer>
+      {fullWidth && <main>{children}</main>}
+      {!fullWidth && (
+        <StyledContainer maxWidth="md">{children}</StyledContainer>
+      )}
       <Footer></Footer>
     </Wrapper>
   )
