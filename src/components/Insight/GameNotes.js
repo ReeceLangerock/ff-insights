@@ -12,7 +12,7 @@ export default class GameNotes extends Component {
       <Container>
         <h2>Game Notes</h2>
         <Text>
-          The {data.gameNotes.margin} point margin of victory for this matchup
+          The {data.gameNotes.margin.toFixed(2)} point margin of victory for this matchup
           ended up being the{" "}
           {NLP.highLowHelper(data.gameNotes.marginOfVictoryRank)} in the league
           this week.
