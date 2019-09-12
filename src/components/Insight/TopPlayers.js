@@ -23,21 +23,21 @@ export default class LeagueInsights extends PureComponent {
             <div className="team">{player.team}</div>
           </Player>
         )
-      } 
+      }
       return null
     })
   }
   render() {
     if (this.props.topStarters) {
       return (
-        <div>
+        <Container>
           <h1>Top Players</h1>
 
           <PlayerContainer>{this.renderTopPlayers("starters")}</PlayerContainer>
           <h1>Top Players on the Bench</h1>
 
           <PlayerContainer>{this.renderTopPlayers("bench")}</PlayerContainer>
-        </div>
+        </Container>
       )
     } else {
       return null
@@ -72,6 +72,10 @@ const Player = MUIStyled(Card)({
     color: "red",
   },
 })
+
+const Container = styled.div`
+  padding: 1.5rem 1rem;
+`
 
 const PlayerContainer = styled.div`
   display: grid;
