@@ -22,6 +22,14 @@ export const addTopBench = (topBench, leagueId) => {
   }
 }
 
+export const addTopMatchupPlayers = (topPlayers, leagueId) => {
+  return {
+    type: "ADD_TOP_MATCHUP_PLAYERS",
+    topPlayers,
+    leagueId,
+  }
+}
+
 export const setLeagueId = leagueId => {
   return {
     type: "SET_LEAGUE_ID",

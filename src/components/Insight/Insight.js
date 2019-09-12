@@ -12,6 +12,7 @@ import * as actions from "./../../redux/actions/insightsActions"
 import InsightLoader from "./InsightLoader"
 import Loader from "./../General/Loader"
 import Charts from "./Charts"
+import TopPlayers from "./TopPlayers"
 
 class Insight extends Component {
   state = {
@@ -31,7 +32,7 @@ class Insight extends Component {
 
   async componentDidUpdate(prevProps) {
     const { path, insights, leagueId, matchup } = this.props
-    const {loading } = this.state
+    const { loading } = this.state
 
     if (path.location.search !== prevProps.path.location.search) {
       InsightLoader.parseUrl(path)
@@ -76,7 +77,7 @@ class Insight extends Component {
   }
 
   render() {
-    const { insights, leagueId, matchup } = this.props
+    const { insights, leagueId, matchup, topPlayers } = this.props
     const insight = insights[leagueId]
       ? insights[leagueId][matchup - 1]
       : undefined
@@ -96,7 +97,11 @@ class Insight extends Component {
         <Regrets data={insight} parsedInsight={parsedInsight} />
         <WhatIf data={insight} parsedInsight={parsedInsight} />
         <GameNotes data={insight} />
-        <Charts data={insight} />
+        <TopPlayers
+          topBench={topPlayers[matchup].bench}
+          topStarters={topPlayers[matchup].starters}
+        />
+        {process.env.NODE_ENV !== "development" && <Charts data={insight} />}
       </Container>
     )
   }
@@ -105,6 +110,8 @@ const mapStateToProps = state => ({
   insights: state.insightsReducer.insights,
   leagueId: state.insightsReducer.leagueId,
   matchup: state.insightsReducer.matchup,
+  topPlayers:
+    state.insightsReducer.topMatchupPlayers[state.insightsReducer.leagueId],
 })
 
 export default connect(

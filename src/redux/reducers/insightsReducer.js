@@ -5,6 +5,7 @@ export const insightsReducer = (
     insights: {},
     topStarters: {},
     topBench: {},
+    topMatchupPlayers: {}
   },
   action
 ) => {
@@ -17,7 +18,6 @@ export const insightsReducer = (
           [action.leagueId]: action.insights,
         },
       }
-
     case "ADD_TOP_STARTERS":
       return {
         ...state,
@@ -34,6 +34,14 @@ export const insightsReducer = (
           [action.leagueId]: action.topBench,
         },
       }
+      case "ADD_TOP_MATCHUP_PLAYERS":
+        return {
+          ...state,
+          topMatchupPlayers: {
+            ...state.topMatchupPlayers,
+            [action.leagueId]: action.topPlayers,
+          },
+        }
     case "SET_LEAGUE_ID":
       return {
         ...state,

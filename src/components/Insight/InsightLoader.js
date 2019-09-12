@@ -27,9 +27,10 @@ const InsightLoader = (function() {
         try {
           const insights = await getInsights(leagueId)
           if (insights) {
-            const { topStarters, topBench } = getLeaguewideInsights(insights)
+            const { topStarters, topBench, topMatchupPlayers } = getLeaguewideInsights(insights)
             store.dispatch(actions.addTopStarters(topStarters, leagueId))
             store.dispatch(actions.addTopBench(topBench, leagueId))
+            store.dispatch(actions.addTopMatchupPlayers(topMatchupPlayers, leagueId))
             store.dispatch(actions.addInsight(insights, leagueId))
           } else {
             store.dispatch(
