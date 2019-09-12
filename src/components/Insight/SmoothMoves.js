@@ -55,7 +55,6 @@ export default class SmoothMoves extends Component {
   }
 
   async gethighestRankedPlayerText(players) {
-    
     let highestRankedPlayer = players[0]
     players.forEach(p => {
       if (
@@ -104,7 +103,11 @@ export default class SmoothMoves extends Component {
       100
     ).toFixed(2)
 
-    const text = `By scoring ${overachiever.points} points, ${overachiever.fullName} beat his projected ${overachiever.projectedPoints} points by ${projectionBeat}%.`
+    const text = `By scoring ${overachiever.points} points, ${
+      overachiever.fullName
+    } beat his projected ${
+      overachiever.projectedPoints
+    } points by ${projectionBeat - 100}%.`
 
     const newUsedPlayers = [...this.state.usedPlayers, overachiever.id]
     this.setState({
@@ -216,6 +219,6 @@ const Container = styled.div`
 `
 
 const Text = styled.p`
-  font-size: .95rem;
+  font-size: 0.95rem;
   margin: 0.5rem 0;
 `
