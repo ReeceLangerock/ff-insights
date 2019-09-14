@@ -2,10 +2,12 @@ export const insightsReducer = (
   state = {
     leagueId: undefined,
     matchup: undefined,
+    leagueNames: {},
+    week: undefined,
     insights: {},
     topStarters: {},
     topBench: {},
-    topMatchupPlayers: {}
+    topMatchupPlayers: {},
   },
   action
 ) => {
@@ -16,6 +18,10 @@ export const insightsReducer = (
         insights: {
           ...state.insights,
           [action.leagueId]: action.insights,
+        },
+        leagueNames: {
+          ...state.leagueNames,
+          [action.leagueId]: action.leagueName,
         },
       }
     case "ADD_TOP_STARTERS":
@@ -34,14 +40,14 @@ export const insightsReducer = (
           [action.leagueId]: action.topBench,
         },
       }
-      case "ADD_TOP_MATCHUP_PLAYERS":
-        return {
-          ...state,
-          topMatchupPlayers: {
-            ...state.topMatchupPlayers,
-            [action.leagueId]: action.topPlayers,
-          },
-        }
+    case "ADD_TOP_MATCHUP_PLAYERS":
+      return {
+        ...state,
+        topMatchupPlayers: {
+          ...state.topMatchupPlayers,
+          [action.leagueId]: action.topPlayers,
+        },
+      }
     case "SET_LEAGUE_ID":
       return {
         ...state,
@@ -51,6 +57,11 @@ export const insightsReducer = (
       return {
         ...state,
         matchup: action.matchup,
+      }
+    case "SET_CURRENT_WEEK":
+      return {
+        ...state,
+        week: action.week,
       }
 
     default:

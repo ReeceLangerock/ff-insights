@@ -1,8 +1,9 @@
-export const addInsight = (insights, leagueId) => {
+export const addInsight = (insights, leagueId, leagueName) => {
   return {
     type: "ADD_INSIGHT",
     insights,
     leagueId,
+    leagueName,
   }
 }
 
@@ -41,5 +42,12 @@ export const setMatchup = matchup => {
   return {
     type: "SET_MATCHUP",
     matchup,
+  }
+}
+
+export const setCurrentWeek = week => {
+  return {
+    type: "SET_CURRENT_WEEK",
+    week,
   }
 }
