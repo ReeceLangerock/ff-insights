@@ -20,7 +20,11 @@ body {
 h1 {
   margin: .75rem 0 1.25rem 0;
   font-size: 1.75rem;
+  font-family: "Ubuntu", sans-serif;
+
 }
 h2 {
   margin: .75rem 0 1rem 0;
+  font-family: "Ubuntu", sans-serif;
+
 }
