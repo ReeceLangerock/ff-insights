@@ -3,21 +3,21 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 import { connect } from "react-redux"
 import { Button } from "@material-ui/core"
-import {ArrowBack} from '@material-ui/icons';
+import { ArrowBack } from "@material-ui/icons"
 
 class Header extends Component {
   render() {
-    const { insights, leagueId } = this.props
+    const { insights, leagueId, week } = this.props
     if (!insights) {
       return <Container />
     }
     return (
       <>
         <Container>
-          Week {insights[leagueId].week}{" "}
+          Week {week}
           <StyledLink to={`/league/?id=${leagueId}`}>
             <Button variant="contained" color="primary">
-              <ArrowBack style={{marginRight: '.5rem'}}/>
+              <ArrowBack style={{ marginRight: ".5rem" }} />
               Back to League
             </Button>
           </StyledLink>
@@ -49,6 +49,7 @@ class Header extends Component {
 const mapStateToProps = state => ({
   insights: state.insightsReducer.insights,
   leagueId: state.insightsReducer.leagueId,
+  week: state.insightsReducer.week,
 })
 
 export default connect(
@@ -69,7 +70,7 @@ const Container = styled.div`
 const Title = styled.h1`
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12); 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding: 1.5rem 1rem;
   margin: 0;
 `
