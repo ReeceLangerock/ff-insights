@@ -16,7 +16,7 @@ export const getWorstUnderperformingStarter = (players, data) => {
     100
   ).toFixed(2)
 
-  const underachievingStarterByPercent = `The ${underachiever.points} points scored by ${underachiever.fullName} was just ${underperformPercent}% of his ${underachiever.projectedPoints} point projection.`
+  const underachievingStarterByPercent = `The ${underachiever.points.toFixed(2)} points scored by ${underachiever.fullName} was just ${underperformPercent}% of his ${underachiever.projectedPoints} point projection.`
   data.usedPlayers = [...data.usedPlayers, underachiever.id]
   data.texts = { ...data.texts, underachievingStarterByPercent }
   return data
@@ -63,8 +63,8 @@ export const getWorstBenchDecision = async (players, data) => {
     let underachieved = P.points < P.projectedPoints
     badChoiceText[`shouldHaveStarted${pos}`] = `Should have started ${P.fullName}, who `
     badChoiceText[`shouldHaveStarted${pos}`] += underachieved
-      ? `underachieved but still should have been in the starting lineup, scoring ${P.points} points against a projected ${P.projectedPoints} points.`
-      : `exceeded his projected ${P.projectedPoints} points, putting up ${P.points} points.`
+      ? `underachieved but still should have been in the starting lineup, scoring ${P.points.toFixed(2)} points against a projected ${P.projectedPoints} points.`
+      : `exceeded his projected ${P.projectedPoints} points, putting up ${P.points.toFixed(2)} points.`
   
   }})
 

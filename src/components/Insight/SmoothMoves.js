@@ -103,11 +103,11 @@ export default class SmoothMoves extends Component {
       100
     ).toFixed(2)
 
-    const text = `By scoring ${overachiever.points} points, ${
+    const text = `By scoring ${overachiever.points.toFixed(2)} points, ${
       overachiever.fullName
     } beat his projected ${
       overachiever.projectedPoints
-    } points by ${projectionBeat - 100}%.`
+    } points by ${(projectionBeat - 100).toFixed(2)}%.`
 
     const newUsedPlayers = [...this.state.usedPlayers, overachiever.id]
     this.setState({
@@ -200,7 +200,7 @@ export default class SmoothMoves extends Component {
 
     positonPlayers.forEach(p => {
       if (p.positionalPointsRank <= 10) {
-        const text = `With ${p.points} points scored, ${
+        const text = `With ${p.points.toFixed(2)} points scored, ${
           p.fullName
         } ranked ${NLP.getOrdinal(p.positionalPointsRank)} among all ${
           p.position
