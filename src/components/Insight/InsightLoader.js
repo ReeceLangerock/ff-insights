@@ -25,13 +25,20 @@ const InsightLoader = (function() {
       const { leagueId, insights } = store.getState().insightsReducer
       if (!insights[leagueId]) {
         try {
-          const insights = await getInsights(leagueId)
+          const { insights, week, leagueName } = await getInsights(leagueId)
           if (insights) {
-            const { topStarters, topBench, topMatchupPlayers } = getLeaguewideInsights(insights)
+            const {
+              topStarters,
+              topBench,
+              topMatchupPlayers,
+            } = getLeaguewideInsights(insights)
             store.dispatch(actions.addTopStarters(topStarters, leagueId))
             store.dispatch(actions.addTopBench(topBench, leagueId))
-            store.dispatch(actions.addTopMatchupPlayers(topMatchupPlayers, leagueId))
-            store.dispatch(actions.addInsight(insights, leagueId))
+            store.dispatch(
+              actions.addTopMatchupPlayers(topMatchupPlayers, leagueId)
+            )
+            store.dispatch(actions.addInsight(insights, leagueId, leagueName))
+            store.dispatch(actions.setCurrentWeek(week))
           } else {
             store.dispatch(
               actions.addInsight({ status: "not available" }, leagueId)
@@ -41,7 +48,6 @@ const InsightLoader = (function() {
           store.dispatch(
             actions.addInsight({ status: "not availabe" }, leagueId)
           )
-
           console.log(e)
         }
       }
