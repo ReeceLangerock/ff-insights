@@ -71,10 +71,12 @@ class League extends React.Component {
     return (
       <div>
         <Header>
-          <h1>
-            {leagueName} - Week {week}
-          </h1>
-
+          {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
+          {leagueName && week && (
+            <h1>
+              {leagueName} - Week {week}
+            </h1>
+          )}
           <div></div>
         </Header>
         <h2>Matchups</h2>
@@ -85,7 +87,10 @@ class League extends React.Component {
           topStarters={topStarters}
         ></LeagueInsights>
 
-        <Sharing data={{insights, leagueName, week, leagueId}}/>
+        {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
+        {leagueName && week && (
+          <Sharing data={{ insights, leagueName, week, leagueId }} />
+        )}
       </div>
     )
   }
