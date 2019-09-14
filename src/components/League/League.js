@@ -6,6 +6,7 @@ import InsightLoader from "../Insight/InsightLoader"
 import Matchup from "./Matchup"
 import Loader from "./../General/Loader"
 import LeagueInsights from "./LeagueInsights"
+import Sharing from "../General/Sharing"
 
 class League extends React.Component {
   state = {
@@ -36,9 +37,6 @@ class League extends React.Component {
 
   renderInsights() {
     const { insights, leagueId } = this.props
-    if (insights[leagueId] && insights[leagueId].status === "not available") {
-      return <div> No Insights Availble </div>
-    }
     return (insights[leagueId] || []).map(insight => {
       return (
         <Matchup
@@ -51,19 +49,43 @@ class League extends React.Component {
   }
 
   render() {
-    const { topStarters, topBench } = this.props
+    const {
+      insights,
+      leagueId,
+      topStarters,
+      topBench,
+      leagueName,
+      week,
+    } = this.props
     if (this.state.loading) {
       return <Loader text="Loading Matchups..." />
     }
+    if (insights[leagueId] && insights[leagueId].status === "not available") {
+      return (
+        <div>
+          <h3>No insights are available for this league at this time.</h3>
+          <p> Please check back later.</p>
+        </div>
+      )
+    }
     return (
       <div>
-        <h1>Matchups</h1>
+        <Header>
+          <h1>
+            {leagueName} - Week {week}
+          </h1>
+
+          <div></div>
+        </Header>
+        <h2>Matchups</h2>
         <MatchupContainer>{this.renderInsights()}</MatchupContainer>
 
         <LeagueInsights
           topBench={topBench}
           topStarters={topStarters}
         ></LeagueInsights>
+
+        <Sharing data={{insights, leagueName, week, leagueId}}/>
       </div>
     )
   }
@@ -74,6 +96,8 @@ const mapStateToProps = state => ({
   topStarters:
     state.insightsReducer.topStarters[state.insightsReducer.leagueId],
   topBench: state.insightsReducer.topBench[state.insightsReducer.leagueId],
+  leagueName: state.insightsReducer.leagueNames[state.insightsReducer.leagueId],
+  week: state.insightsReducer.week,
 })
 
 export default connect(
@@ -89,4 +113,8 @@ const MatchupContainer = styled.div`
     grid-template-columns: 1fr;
     grid-gap: 0;
   }
+`
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
