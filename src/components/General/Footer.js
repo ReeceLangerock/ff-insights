@@ -9,7 +9,7 @@ export default function Footer() {
         <StyledLink to="/">About</StyledLink>
         <StyledLink to="/league?id=324353">Demo</StyledLink>
         <StyledLink to="/signup">Sign Up</StyledLink>
-        <StyledA target= "_blank" href = "https://www.reddit.com/r/Insightful_FF/">Contact Us</StyledA>
+        <StyledA target= "_blank" rel= "noopener noreferrer" href = "https://www.reddit.com/r/Insightful_FF/">Contact Us</StyledA>
       </GridContainer>
 
       <Copyright>© {new Date().getFullYear()} Jetsweep Studios</Copyright>

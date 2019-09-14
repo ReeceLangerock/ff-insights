@@ -45,6 +45,7 @@ export default class ContentSection extends Component {
           <div>
             <h2>Follow us on Twitter</h2>
             <a
+              rel="noopener noreferrer"
               target="_blank"
               href="https://twitter.com/JetsweepStudios?ref_src=twsrc%5Etfw"
               data-show-count="false"
