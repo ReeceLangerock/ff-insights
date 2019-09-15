@@ -39,6 +39,7 @@ export default class Toast extends Component {
               {this.props.message}
             </span>
           }
+          
         ></SnackbarContent>
       </StyledSnackbar>
     )
