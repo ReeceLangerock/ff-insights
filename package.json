@@ -11,6 +11,7 @@
     "axios": "^0.19.0",
     "gatsby": "^2.13.57",
     "gatsby-image": "^2.2.8",
+    "gatsby-plugin-google-analytics": "^2.1.16",
     "gatsby-plugin-manifest": "^2.2.5",
     "gatsby-plugin-material-ui": "^2.1.6",
     "gatsby-plugin-offline": "^2.2.5",
@@ -21,10 +22,8 @@
     "gatsby-transformer-sharp": "^2.2.6",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-ga": "^2.6.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.1.0",
-    "recharts": "^1.7.0",
     "redux": "^4.0.4",
     "styled-components": "^4.3.2",
     "victory": "^33.0.5"
