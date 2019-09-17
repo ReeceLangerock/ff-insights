@@ -8,7 +8,7 @@ import ContentSection3 from "../components/HomePage.js/ContentSection3"
 
 const IndexPage = () => (
   <Layout fullWidth={true}>
-    <SEO title="home" />
+    <SEO title="Home" />
 
     <Hero />
     <ContentSection></ContentSection>

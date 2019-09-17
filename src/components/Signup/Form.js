@@ -138,7 +138,7 @@ export default class Form extends Component {
 
           <p>
             * If your league is public but you got an error regarding SWID or
-            ESPN_S2 please wait and try again a bit later, this seems so be an
+            ESPN_S2 please wait and try again a bit later, this seems to be an
             intermittent issue with ESPN
           </p>
           <p>
