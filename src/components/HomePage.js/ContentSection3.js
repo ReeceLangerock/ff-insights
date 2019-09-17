@@ -1,20 +1,9 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
-
 import { Container } from "@material-ui/core"
 
-const query = graphql`
-  query {
-    fileName: file(relativePath: { eq: "images/myimage.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 400, maxHeight: 250) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-  }
-`
+
 
 export default class ContentSection extends Component {
   render() {
@@ -70,8 +59,6 @@ const Image = styled.svg`
   height: 45px;
   fill: var(--primary-color);
   margin-top: 1rem; 
-  column-
-
 `
 
 const StyledContainer = MUIStyled(Container)({
