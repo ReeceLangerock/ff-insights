@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "insightful",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Fantasy Football Insights",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Reece Langerock <reecelangerock@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
@@ -24,7 +24,6 @@
     "react-ga": "^2.6.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.1.0",
-    "recharts": "^1.7.0",
     "redux": "^4.0.4",
     "styled-components": "^4.3.2",
     "victory": "^33.0.5"
