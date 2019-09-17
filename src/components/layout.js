@@ -7,7 +7,11 @@ import Footer from "./General/Footer"
 import "./layout.css"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
+import ReactGA from "react-ga"
 const Layout = ({ children, fullWidth }) => {
+  ReactGA.initialize("UA-148167774-1", { siteSpeedSampleRate: 100 })
+  ReactGA.pageview(window.location.pathname + window.location.search)
+
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {

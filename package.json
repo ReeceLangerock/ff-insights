@@ -21,6 +21,7 @@
     "gatsby-transformer-sharp": "^2.2.6",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-ga": "^2.6.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.1.0",
     "recharts": "^1.7.0",
