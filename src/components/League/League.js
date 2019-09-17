@@ -7,6 +7,8 @@ import Matchup from "./Matchup"
 import Loader from "./../General/Loader"
 import LeagueInsights from "./LeagueInsights"
 import Sharing from "../General/Sharing"
+import { Helmet } from "react-helmet"
+import ReactGA from "react-ga"
 
 class League extends React.Component {
   state = {
@@ -17,6 +19,9 @@ class League extends React.Component {
   async componentDidMount() {
     const { path, insights } = this.props
     const { id } = await InsightLoader.parseUrl(path)
+    ReactGA.initialize("UA-148167774-1",{siteSpeedSampleRate: 100})
+    ReactGA.pageview(window.location.pathname + window.location.search)
+
     if (id && !insights[id]) {
       this.setState({ loading: true })
       await InsightLoader.load()
@@ -70,15 +75,24 @@ class League extends React.Component {
     }
     return (
       <div>
-        <Header>
-          {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
-          {leagueName && week && (
-            <h1>
-              {leagueName} - Week {week}
-            </h1>
-          )}
-          <div></div>
-        </Header>
+        {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
+        {leagueName && week && (
+          <>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>{`${leagueName} - Week ${week}`}</title>
+              <link
+                rel="canonical"
+                href={`https://insightful.tk/league/?id=${leagueId}`}
+              />
+            </Helmet>
+            <Header>
+              <h1>
+                {leagueName} - Week {week}
+              </h1>
+            </Header>
+          </>
+        )}
         <h2>Matchups</h2>
         <MatchupContainer>{this.renderInsights()}</MatchupContainer>
 

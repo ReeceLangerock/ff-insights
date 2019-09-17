@@ -13,6 +13,8 @@ import InsightLoader from "./InsightLoader"
 import Loader from "./../General/Loader"
 import Charts from "./Charts"
 import TopPlayers from "./TopPlayers"
+import { Helmet } from "react-helmet"
+import ReactGA from "react-ga"
 
 class Insight extends Component {
   state = {
@@ -25,6 +27,8 @@ class Insight extends Component {
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
     await InsightLoader.parseUrl(path)
+    ReactGA.initialize("UA-148167774-1",{siteSpeedSampleRate: 100})
+    ReactGA.pageview(window.location.pathname + window.location.search)
     try {
       await this.getMatchupData(insights[leagueId][matchup - 1])
     } catch (e) {}
@@ -91,6 +95,14 @@ class Insight extends Component {
 
     return (
       <Container>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{`${insight.awayTeam.name} vs. ${insight.homeTeam.name}`}</title>
+          <link
+            rel="canonical"
+            href={`https://insightful.tk/league/?id=${leagueId}`}
+          />
+        </Helmet>
         <Header data={insight} />
         <Records data={insight} />
         <SmoothMoves data={insight} parsedInsight={parsedInsight} />
@@ -109,6 +121,7 @@ class Insight extends Component {
 const mapStateToProps = state => ({
   insights: state.insightsReducer.insights,
   leagueId: state.insightsReducer.leagueId,
+  leagueName: state.insightsReducer.leagueNames[state.insightsReducer.leagueId],
   matchup: state.insightsReducer.matchup,
   topPlayers:
     state.insightsReducer.topMatchupPlayers[state.insightsReducer.leagueId],
