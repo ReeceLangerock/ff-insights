@@ -9,7 +9,17 @@ export default function Footer() {
         <StyledLink to="/">About</StyledLink>
         <StyledLink to="/league?id=324353">Demo</StyledLink>
         <StyledLink to="/signup">Sign Up</StyledLink>
-        <StyledA target= "_blank" rel= "noopener noreferrer" href = "https://www.reddit.com/r/Insightful_FF/">Contact Us</StyledA>
+        <div>
+          <StyledA
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.reddit.com/r/Insightful_FF/"
+          >
+            Contact Us
+          </StyledA>
+          <StyledLink to="/privacy">Privacy Policy</StyledLink>
+          <StyledLink to="/toc">Terms & Conditions</StyledLink>
+        </div>
       </GridContainer>
 
       <Copyright>© {new Date().getFullYear()} Jetsweep Studios</Copyright>
@@ -34,7 +44,7 @@ const GridContainer = styled.div`
   }
 `
 const StyledA = styled.a`
- color: hsla(0, 0%, 100%, 0.85);
+  color: hsla(0, 0%, 100%, 0.85);
   text-decoration: none;
   font-size: 1.5rem;
   display: block;
