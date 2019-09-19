@@ -46,7 +46,7 @@ const InsightLoader = (function() {
           }
         } catch (e) {
           store.dispatch(
-            actions.addInsight({ status: "not availabe" }, leagueId)
+            actions.addInsight({ status: "not available" }, leagueId)
           )
           console.log(e)
         }
