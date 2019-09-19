@@ -14,7 +14,6 @@ import Loader from "./../General/Loader"
 import Charts from "./Charts"
 import TopPlayers from "./TopPlayers"
 import { Helmet } from "react-helmet"
-import ReactGA from "react-ga"
 
 class Insight extends Component {
   state = {
@@ -27,8 +26,6 @@ class Insight extends Component {
   async componentDidMount() {
     const { leagueId, insights, path, matchup } = this.props
     await InsightLoader.parseUrl(path)
-    ReactGA.initialize("UA-148167774-1",{siteSpeedSampleRate: 100})
-    ReactGA.pageview(window.location.pathname + window.location.search)
     try {
       await this.getMatchupData(insights[leagueId][matchup - 1])
     } catch (e) {}
@@ -81,7 +78,7 @@ class Insight extends Component {
   }
 
   render() {
-    const { insights, leagueId, matchup, topPlayers } = this.props
+    const { insights, leagueId, matchup, topPlayers,leagueData } = this.props
     const insight = insights[leagueId]
       ? insights[leagueId][matchup - 1]
       : undefined
@@ -107,7 +104,7 @@ class Insight extends Component {
         <Records data={insight} />
         <SmoothMoves data={insight} parsedInsight={parsedInsight} />
         <Regrets data={insight} parsedInsight={parsedInsight} />
-        <WhatIf data={insight} parsedInsight={parsedInsight} />
+        <WhatIf data={insight} parsedInsight={parsedInsight} leagueData={leagueData}/>
         <GameNotes data={insight} parsedInsight={parsedInsight} />
         <TopPlayers
           topBench={topPlayers[matchup].bench}
@@ -121,7 +118,7 @@ class Insight extends Component {
 const mapStateToProps = state => ({
   insights: state.insightsReducer.insights,
   leagueId: state.insightsReducer.leagueId,
-  leagueName: state.insightsReducer.leagueNames[state.insightsReducer.leagueId],
+  leagueData: state.insightsReducer.leagues[state.insightsReducer.leagueId],
   matchup: state.insightsReducer.matchup,
   topPlayers:
     state.insightsReducer.topMatchupPlayers[state.insightsReducer.leagueId],
