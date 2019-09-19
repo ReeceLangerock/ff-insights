@@ -46,7 +46,7 @@ const GridContainer = styled.div`
 const StyledA = styled.a`
   color: hsla(0, 0%, 100%, 0.85);
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   display: block;
   margin-bottom: 0.5rem;
   :hover {
@@ -58,7 +58,7 @@ const StyledA = styled.a`
 const StyledLink = styled(Link)`
   color: hsla(0, 0%, 100%, 0.85);
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   display: block;
   margin-bottom: 0.5rem;
   :hover {
