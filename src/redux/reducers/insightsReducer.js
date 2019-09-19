@@ -2,7 +2,7 @@ export const insightsReducer = (
   state = {
     leagueId: undefined,
     matchup: undefined,
-    leagueNames: {},
+    leagues: {},
     week: undefined,
     insights: {},
     topStarters: {},
@@ -19,9 +19,13 @@ export const insightsReducer = (
           ...state.insights,
           [action.leagueId]: action.insights,
         },
-        leagueNames: {
-          ...state.leagueNames,
-          [action.leagueId]: action.leagueName,
+      }
+    case "ADD_LEAGUE_INFO":
+      return {
+        ...state,
+        leagues: {
+          ...state.leagues,
+          [action.leagueId]: action.leagueData,
         },
       }
     case "ADD_TOP_STARTERS":

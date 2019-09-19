@@ -54,7 +54,7 @@ class League extends React.Component {
       leagueId,
       topStarters,
       topBench,
-      leagueName,
+      leagueData,
       week,
     } = this.props
     if (this.state.loading) {
@@ -71,10 +71,9 @@ class League extends React.Component {
     return (
       <div>
         <Header>
-          {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
-          {leagueName && week && (
+          {leagueData && (
             <h1>
-              {leagueName} - Week {week}
+              {leagueData.leagueName} - Week {week}
             </h1>
           )}
           <div></div>
@@ -87,10 +86,7 @@ class League extends React.Component {
           topStarters={topStarters}
         ></LeagueInsights>
 
-        {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
-        {leagueName && week && (
-          <Sharing data={{ insights, leagueName, week, leagueId }} />
-        )}
+        <Sharing data={{ insights, leagueData, week, leagueId }} />
       </div>
     )
   }
@@ -101,7 +97,7 @@ const mapStateToProps = state => ({
   topStarters:
     state.insightsReducer.topStarters[state.insightsReducer.leagueId],
   topBench: state.insightsReducer.topBench[state.insightsReducer.leagueId],
-  leagueName: state.insightsReducer.leagueNames[state.insightsReducer.leagueId],
+  leagueData: state.insightsReducer.leagues[state.insightsReducer.leagueId],
   week: state.insightsReducer.week,
 })
 
