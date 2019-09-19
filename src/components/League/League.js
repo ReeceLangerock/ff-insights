@@ -72,7 +72,7 @@ class League extends React.Component {
     }
     return (
       <div>
-        {leagueData.leagueName && (
+        {leagueData && (
           <>
             <Helmet>
               <meta charSet="utf-8" />
