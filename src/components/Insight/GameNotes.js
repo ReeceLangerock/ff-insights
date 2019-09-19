@@ -10,7 +10,7 @@ export default class GameNotes extends Component {
   }
 
   async generateText() {
-    const { data, parsedInsight } = this.props
+    const { data, parsedInsight, leagueData } = this.props
     const { gameNotes } = data
     let texts = {}
 
@@ -30,11 +30,13 @@ export default class GameNotes extends Component {
 
       texts.winningTeamPositionNote = gameNotesHelper.getWinningTeamPositionNote(
         winningNotes,
-        parsedInsight.winningTeam
+        parsedInsight.winningTeam,
+        leagueData.numTeams
       )
       texts.losingTeamPositionNote = gameNotesHelper.getLosingTeamPositionNote(
         losingNotes,
-        parsedInsight.losingTeam
+        parsedInsight.losingTeam,
+        leagueData.numTeams
       )
     }
     this.setState({

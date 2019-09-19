@@ -7,6 +7,7 @@ import Matchup from "./Matchup"
 import Loader from "./../General/Loader"
 import LeagueInsights from "./LeagueInsights"
 import Sharing from "../General/Sharing"
+import { Helmet } from "react-helmet"
 
 class League extends React.Component {
   state = {
@@ -17,6 +18,7 @@ class League extends React.Component {
   async componentDidMount() {
     const { path, insights } = this.props
     const { id } = await InsightLoader.parseUrl(path)
+
     if (id && !insights[id]) {
       this.setState({ loading: true })
       await InsightLoader.load()
@@ -70,14 +72,23 @@ class League extends React.Component {
     }
     return (
       <div>
-        <Header>
-          {leagueData && (
-            <h1>
-              {leagueData.leagueName} - Week {week}
-            </h1>
-          )}
-          <div></div>
-        </Header>
+        {leagueData.leagueName && (
+          <>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>{`${leagueData.leagueName} - Week ${week}`}</title>
+              <link
+                rel="canonical"
+                href={`https://insightful.tk/league/?id=${leagueId}`}
+              />
+            </Helmet>
+            <Header>
+              <h1>
+                {leagueData.leagueName} - Week {week}
+              </h1>
+            </Header>
+          </>
+        )}
         <h2>Matchups</h2>
         <MatchupContainer>{this.renderInsights()}</MatchupContainer>
 

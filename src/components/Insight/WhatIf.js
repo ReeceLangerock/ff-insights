@@ -10,14 +10,16 @@ export default class WhatIf extends Component {
   }
 
   async generateText() {
-    const { data, parsedInsight } = this.props
+    const { data, parsedInsight, leagueData } = this.props
     const { whatIf } = this.props.data
     let texts = {}
     let numBeaten
     let numLostTo
     let pointsNeededToBeatAll
     let pointsNeededToLoseToAll
+    let winningScore
     if (data.homeTeam.score > data.awayTeam.score) {
+      winningScore = data.homeTeam.score
       numBeaten = whatIf.homeBeatableTeams
       numLostTo = whatIf.awayTeamsLostTo
       pointsNeededToBeatAll = whatIf.homePointsNeededToBeatAll
@@ -32,11 +34,13 @@ export default class WhatIf extends Component {
     texts.otherTeamsBeaten = WhatIfHelper.generateOtherTeamsBeatenText(
       parsedInsight.winningTeam,
       parsedInsight.losingTeam,
-      numBeaten
+      numBeaten,
+      leagueData.numTeams
     )
     texts.pointsNeededToBeatAll = WhatIfHelper.generatePointsNeededToBeatAllText(
       parsedInsight.winningTeam,
-      pointsNeededToBeatAll
+      pointsNeededToBeatAll,
+      winningScore
     )
     texts.otherTeamsLostTo = WhatIfHelper.generateOtherTeamsLostToText(
       parsedInsight.winningTeam,

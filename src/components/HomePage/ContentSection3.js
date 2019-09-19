@@ -3,8 +3,6 @@ import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
 import { Container } from "@material-ui/core"
 
-
-
 export default class ContentSection extends Component {
   render() {
     return (
@@ -58,7 +56,13 @@ export default class ContentSection extends Component {
 const Image = styled.svg`
   height: 45px;
   fill: var(--primary-color);
-  margin-top: 1rem; 
+  margin-top: 1rem;
+  transition: 0.25s;
+
+  :hover {
+    transform: scale(1.1);
+    transition: 0.25s;
+  }
 `
 
 const StyledContainer = MUIStyled(Container)({

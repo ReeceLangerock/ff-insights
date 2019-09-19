@@ -13,6 +13,7 @@ import InsightLoader from "./InsightLoader"
 import Loader from "./../General/Loader"
 import Charts from "./Charts"
 import TopPlayers from "./TopPlayers"
+import { Helmet } from "react-helmet"
 
 class Insight extends Component {
   state = {
@@ -77,7 +78,7 @@ class Insight extends Component {
   }
 
   render() {
-    const { insights, leagueId, matchup, topPlayers } = this.props
+    const { insights, leagueId, matchup, topPlayers,leagueData } = this.props
     const insight = insights[leagueId]
       ? insights[leagueId][matchup - 1]
       : undefined
@@ -91,12 +92,20 @@ class Insight extends Component {
 
     return (
       <Container>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{`${insight.awayTeam.name} vs. ${insight.homeTeam.name}`}</title>
+          <link
+            rel="canonical"
+            href={`https://insightful.tk/league/?id=${leagueId}`}
+          />
+        </Helmet>
         <Header data={insight} />
         <Records data={insight} />
         <SmoothMoves data={insight} parsedInsight={parsedInsight} />
         <Regrets data={insight} parsedInsight={parsedInsight} />
-        <WhatIf data={insight} parsedInsight={parsedInsight} />
-        <GameNotes data={insight} parsedInsight={parsedInsight} />
+        <WhatIf data={insight} parsedInsight={parsedInsight} leagueData={leagueData}/>
+        <GameNotes data={insight} parsedInsight={parsedInsight} leagueData={leagueData}/>
         <TopPlayers
           topBench={topPlayers[matchup].bench}
           topStarters={topPlayers[matchup].starters}
@@ -109,6 +118,7 @@ class Insight extends Component {
 const mapStateToProps = state => ({
   insights: state.insightsReducer.insights,
   leagueId: state.insightsReducer.leagueId,
+  leagueData: state.insightsReducer.leagues[state.insightsReducer.leagueId],
   matchup: state.insightsReducer.matchup,
   topPlayers:
     state.insightsReducer.topMatchupPlayers[state.insightsReducer.leagueId],
