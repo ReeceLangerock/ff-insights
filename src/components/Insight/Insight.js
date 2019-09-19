@@ -105,7 +105,7 @@ class Insight extends Component {
         <SmoothMoves data={insight} parsedInsight={parsedInsight} />
         <Regrets data={insight} parsedInsight={parsedInsight} />
         <WhatIf data={insight} parsedInsight={parsedInsight} leagueData={leagueData}/>
-        <GameNotes data={insight} parsedInsight={parsedInsight} />
+        <GameNotes data={insight} parsedInsight={parsedInsight} leagueData={leagueData}/>
         <TopPlayers
           topBench={topPlayers[matchup].bench}
           topStarters={topPlayers[matchup].starters}
