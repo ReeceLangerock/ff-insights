@@ -52,7 +52,6 @@ export default {
         notes.rbRank > notes.wrRank
           ? { points: notes.RB, rank: notes.rbRank, name: "running backs" }
           : { points: notes.WR, rank: notes.wrRank, name: "wide receivers" }
-      console.log(pos)
       text = `${teamName}'s didn't get much help from their ${
         pos.name
       }. As a unit they only scored ${pos.points.toFixed(
