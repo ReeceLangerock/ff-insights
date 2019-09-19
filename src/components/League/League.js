@@ -8,7 +8,6 @@ import Loader from "./../General/Loader"
 import LeagueInsights from "./LeagueInsights"
 import Sharing from "../General/Sharing"
 import { Helmet } from "react-helmet"
-import ReactGA from "react-ga"
 
 class League extends React.Component {
   state = {
@@ -19,8 +18,6 @@ class League extends React.Component {
   async componentDidMount() {
     const { path, insights } = this.props
     const { id } = await InsightLoader.parseUrl(path)
-    ReactGA.initialize("UA-148167774-1",{siteSpeedSampleRate: 100})
-    ReactGA.pageview(window.location.pathname + window.location.search)
 
     if (id && !insights[id]) {
       this.setState({ loading: true })
@@ -59,7 +56,7 @@ class League extends React.Component {
       leagueId,
       topStarters,
       topBench,
-      leagueName,
+      leagueData,
       week,
     } = this.props
     if (this.state.loading) {
@@ -75,12 +72,11 @@ class League extends React.Component {
     }
     return (
       <div>
-        {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
-        {leagueName && week && (
+        {leagueData.leagueName && (
           <>
             <Helmet>
               <meta charSet="utf-8" />
-              <title>{`${leagueName} - Week ${week}`}</title>
+              <title>{`${leagueData.leagueName} - Week ${week}`}</title>
               <link
                 rel="canonical"
                 href={`https://insightful.tk/league/?id=${leagueId}`}
@@ -88,7 +84,7 @@ class League extends React.Component {
             </Helmet>
             <Header>
               <h1>
-                {leagueName} - Week {week}
+                {leagueData.leagueName} - Week {week}
               </h1>
             </Header>
           </>
@@ -101,10 +97,7 @@ class League extends React.Component {
           topStarters={topStarters}
         ></LeagueInsights>
 
-        {/* THIS CAN BE REMOVED FOR WEEK 2!!! */}
-        {leagueName && week && (
-          <Sharing data={{ insights, leagueName, week, leagueId }} />
-        )}
+        <Sharing data={{ insights, leagueData, week, leagueId }} />
       </div>
     )
   }
@@ -115,7 +108,7 @@ const mapStateToProps = state => ({
   topStarters:
     state.insightsReducer.topStarters[state.insightsReducer.leagueId],
   topBench: state.insightsReducer.topBench[state.insightsReducer.leagueId],
-  leagueName: state.insightsReducer.leagueNames[state.insightsReducer.leagueId],
+  leagueData: state.insightsReducer.leagues[state.insightsReducer.leagueId],
   week: state.insightsReducer.week,
 })
 

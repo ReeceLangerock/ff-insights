@@ -51,3 +51,14 @@ export const setCurrentWeek = week => {
     week,
   }
 }
+
+export const addLeagueInfo = (leagueId, leagueName, numTeams) => {
+  return {
+    type: "ADD_LEAGUE_INFO",
+    leagueId,
+    leagueData: {
+      leagueName,
+      numTeams,
+    },
+  }
+}

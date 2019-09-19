@@ -65,7 +65,7 @@ export default class SmoothMoves extends Component {
       }
     })
 
-    const text = `With ${highestRankedPlayer.points} points, ${
+    const text = `With ${highestRankedPlayer.points.toFixed(2)} points, ${
       highestRankedPlayer.fullName
     } had the ${NLP.highLowHelper(
       highestRankedPlayer.positionalPointsRank
