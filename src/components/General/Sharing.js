@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Card, Button } from "@material-ui/core"
 import { styled as MUIStyled } from "@material-ui/styles"
 import styled from "styled-components"
+import Dialog from './Dialog'
 
 export default class Sharing extends Component {
   state = {}
@@ -32,6 +33,7 @@ export default class Sharing extends Component {
     const link = encodeURI(base + text)
     this.setState({ twitterLink: link })
   }
+
   render() {
     const { data } = this.props
     return (
@@ -78,6 +80,14 @@ export default class Sharing extends Component {
               </Image>
             </a>
           </Share>
+          <Share>
+            <h3>Get Updates</h3>
+            <p>
+              Email me new insights for <br />
+              <i>{data.leagueName}</i>
+            </p>
+            <Dialog leagueName={data.leagueName}></Dialog>
+          </Share>
         </Container>
       </>
     )
@@ -96,8 +106,9 @@ const Container = styled.div`
 
 const Share = MUIStyled(Card)({
   marginBottom: "1rem",
-  padding: "0.5rem 0.35rem",
+  padding: "0.5rem",
   textAlign: "center",
+  lineHeight: "1.25",
   "& h3": {
     margin: "0 0 .5rem 0",
   },
