@@ -7,6 +7,7 @@ import Instructions from "./Instructions"
 import { leagueId, email, isPrivate, SWID, ESPN_S2, errors } from "./formData"
 import { setToastData, hideToast } from "./../../redux/actions/toastActions"
 import store from "./../../redux/store"
+import { validateEmail, validateLeagueId } from "./../../lib/formHelper"
 
 export default class Form extends Component {
   constructor(props) {
@@ -27,10 +28,8 @@ export default class Form extends Component {
   async validateForm() {
     const { form } = this.state
     const errors = {
-      leagueId: !(form.leagueId.match(/^\d*$/) && form.leagueId.length > 3),
-      email: !form.email.match(
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      ),
+      leagueId: !validateLeagueId(form.leagueId),
+      email: !validateEmail(form.email),
     }
 
     if (form.isPrivate) {

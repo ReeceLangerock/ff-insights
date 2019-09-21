@@ -1,14 +1,23 @@
 import React from "react"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogContentText from "@material-ui/core/DialogContentText"
-import DialogTitle from "@material-ui/core/DialogTitle"
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@material-ui/core"
+import { subscribeToLeagues } from "./../../lib/AxiosHelper"
+import { setToastData } from "./../../redux/actions/toastActions"
+import { errors } from "./../Signup/formData"
+import store from "./../../redux/store"
+import { validateEmail, validateLeagueId } from "./../../lib/formHelper"
 
-export default function FormDialog({ leagueName }) {
+export default function FormDialog({ leagueName, leagueId }) {
   const [open, setOpen] = React.useState(false)
+  const [email, setEmail] = React.useState("")
+  const [leagues, setAdditionalLeagues] = React.useState("")
 
   function handleClickOpen() {
     setOpen(true)
@@ -18,33 +27,29 @@ export default function FormDialog({ leagueName }) {
     setOpen(false)
   }
 
-
-//   async function handleSubmit(e) {
-//     this.setState({
-//       showToast: false,
-//       submissionMessage: "",
-//       error: {},
-//     })
-//     e.preventDefault()
-//     const validationPass = await this.validateForm()
-//     let responseType = "error"
-//     let response = {}
-//     if (validationPass) {
-//       response = await addLeague(this.state.form)
-//       if (response.statusCode === 200) {
-//         responseType = "success"
-//       }
-//       if (response.statusCode === 401) {
-//         this.setState({ form: { ...this.state.form, isPrivate: true } })
-//       }
-//     } else {
-//       Object.keys(this.state.error).forEach(error => {
-//         if (this.state.error[error]) {
-//           response.body = errors[error]
-//         }
-//       })
-//     }
-
+  async function handleSubmit(e) {
+    const validLeagues = validateLeagueId(leagues.replace(/\s/g, "").split(","))
+    if (validateEmail(email) && validLeagues) {
+      const response = await subscribeToLeagues({ email, leagues, leagueId })
+      if (response.statusCode === 200) {
+        store.dispatch(
+          setToastData("You were subscribed successfully!", "success")
+        )
+        setOpen(false)
+      }
+      if (response.statusCode === 401) {
+        store.dispatch(
+          setToastData(
+            "There was an error subscribing you to the league",
+            "error"
+          )
+        )
+      }
+    } else {
+      const message = !validLeagues ? errors.leagueId : errors.email
+      store.dispatch(setToastData(message, "error"))
+    }
+  }
 
   return (
     <div>
@@ -60,7 +65,7 @@ export default function FormDialog({ leagueName }) {
         <DialogContent>
           <DialogContentText>
             To subscribe to {leagueName}, please enter your email address here.
-            We will send updates occasionally.
+            We will send updates every Tuesday during the regular season.
           </DialogContentText>
           <TextField
             autoFocus
@@ -68,10 +73,13 @@ export default function FormDialog({ leagueName }) {
             id="name"
             label="Email Address"
             type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
             fullWidth
             required
+            style={{ marginTop: 0 }}
           />
-          <DialogContentText style={{ marginTop: "1rem" }}>
+          <DialogContentText style={{ marginTop: "1.5rem" }}>
             If you'd like to subscribe to more leagues enter their ids,
             separated by a comma.
           </DialogContentText>
@@ -82,6 +90,9 @@ export default function FormDialog({ leagueName }) {
             label="League ID's"
             type="ids"
             fullWidth
+            value={leagues}
+            onChange={e => setAdditionalLeagues(e.target.value)}
+            style={{ marginTop: 0 }}
           />
         </DialogContent>
         <DialogActions>
