@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Card, Button } from "@material-ui/core"
 import { styled as MUIStyled } from "@material-ui/styles"
 import styled from "styled-components"
-import Dialog from './Dialog'
+import Dialog from "./Dialog"
 
 export default class Sharing extends Component {
   state = {}
@@ -86,7 +86,10 @@ export default class Sharing extends Component {
               Email me new insights for <br />
               <i>{data.leagueName}</i>
             </p>
-            <Dialog leagueName={data.leagueName}></Dialog>
+            <Dialog
+              leagueName={data.leagueName}
+              leagueId={data.leagueId}
+            ></Dialog>
           </Share>
         </Container>
       </>
