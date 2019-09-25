@@ -70,7 +70,7 @@ export default class Form extends Component {
     }
 
     store.dispatch(
-      setToastData(response.body || "Unknown error type", type, true)
+      setToastData(response.body || "Unknown error type", type)
     )
   }
 

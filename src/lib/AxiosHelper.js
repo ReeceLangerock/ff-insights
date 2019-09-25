@@ -45,8 +45,9 @@ export const subscribeToLeagues = async body => {
         ...body,
       })
     )
-    return response.data
+    return response
   } catch (error) {
+    return error
     console.error(error)
   }
 }

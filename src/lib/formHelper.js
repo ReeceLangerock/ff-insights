@@ -5,9 +5,6 @@ export const validateEmail = email => {
 }
 
 export const validateLeagueId = leagueId => {
-  if (leagueId.length === 0) {
-    return true
-  }
   if (Array.isArray(leagueId)) {
     return leagueId.every(id => id.match(/^\d*$/) && id.length > 3)
   } else {

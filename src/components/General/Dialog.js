@@ -28,13 +28,16 @@ export default function FormDialog({ leagueName, leagueId }) {
   }
 
   async function handleSubmit(e) {
-    const validLeagues = validateLeagueId(leagues.replace(/\s/g, "").split(","))
+    const leagueSet = new Set([leagueId])
+    if (leagues) {
+      leagueSet.add(...leagues.replace(/\s/g, "").split(","))
+    }
+    const leagueArray = [...leagueSet]
+    const validLeagues = leagues.length === 0 || validateLeagueId(leagueArray)
     if (validateEmail(email) && validLeagues) {
-      const response = await subscribeToLeagues({ email, leagues, leagueId })
-      if (response.statusCode === 200) {
-        store.dispatch(
-          setToastData("You were subscribed successfully!", "success")
-        )
+      const response = await subscribeToLeagues({ email, leagues: leagueArray })
+      if (response.status === 200) {
+        store.dispatch(setToastData(response.data.message, "success"))
         setOpen(false)
       }
       if (response.statusCode === 401) {
