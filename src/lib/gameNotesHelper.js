@@ -1,9 +1,7 @@
 import NLP from "./NLP"
 
-//TEMPPPPPP
 export default {
-  getWinningTeamPositionNote(notes, teamName) {
-    const TEAM_COUNT = 12
+  getWinningTeamPositionNote(notes, teamName, TEAM_COUNT) {
     let text = ""
     if (notes.rbRank <= TEAM_COUNT / 2 || notes.wrRank <= TEAM_COUNT / 2) {
       const pos =
@@ -27,16 +25,14 @@ export default {
         pos.name
       }. As a unit they only scored ${pos.points.toFixed(
         2
-      )} points, good for the ${NLP.getOrdinal(
-        TEAM_COUNT - pos.rank + 1,
+      )} points, good for the ${NLP.highLowHelper(
+        pos.rank,
         TEAM_COUNT
       )} lowest score in the league`
     }
     return text
   },
-  getLosingTeamPositionNote(notes, teamName) {
-    const TEAM_COUNT = 12
-
+  getLosingTeamPositionNote(notes, teamName, TEAM_COUNT) {
     let text = ""
     if (notes.rbRank <= TEAM_COUNT / 2 || notes.wrRank <= TEAM_COUNT / 2) {
       const pos =
@@ -60,10 +56,10 @@ export default {
         pos.name
       }. As a unit they only scored ${pos.points.toFixed(
         2
-      )} points, good for ${NLP.getOrdinal(
-        TEAM_COUNT - pos.rank + 1,
+      )} points, good for ${NLP.highLowHelper(
+        pos.rank,
         TEAM_COUNT
-      )} lowest score in the league`
+      )} score in the league`
     }
     return text
   },

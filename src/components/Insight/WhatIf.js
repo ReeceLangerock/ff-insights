@@ -11,7 +11,6 @@ export default class WhatIf extends Component {
 
   async generateText() {
     const { data, parsedInsight, leagueData } = this.props
-    console.log(data)
     const { whatIf } = this.props.data
     let texts = {}
     let numBeaten

@@ -1,6 +1,6 @@
 import axios from "axios"
 const ROOT_URL =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV !== "development"
     ? "http://localhost:3001"
     : "https://aw2ua68a2j.execute-api.us-east-2.amazonaws.com/production"
 
@@ -12,7 +12,6 @@ export const getLeagueList = async () => {
     console.error(error)
   }
 }
-//comment for dev branch
 
 export const addLeague = async body => {
   try {
@@ -34,6 +33,35 @@ export const getInsights = async id => {
     return response.data
   } catch (error) {
     console.error(error)
-    return { }
+    return {}
+  }
+}
+
+export const subscribeToLeagues = async body => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/subscribe`,
+      JSON.stringify({
+        ...body,
+      })
+    )
+    return response
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const confirmEmail = async body => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/email`,
+      JSON.stringify({
+        ...body,
+      })
+    )
+    return response
+  } catch (error) {
+    return error
+    console.error(error)
   }
 }

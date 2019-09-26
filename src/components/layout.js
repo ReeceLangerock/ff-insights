@@ -4,11 +4,13 @@ import { useStaticQuery, graphql } from "gatsby"
 import { Container } from "@material-ui/core"
 import Header from "./header"
 import Footer from "./General/Footer"
+import Toast from "./General/Toast"
 import "./layout.css"
+import { connect } from "react-redux"
 import styled from "styled-components"
 import { styled as MUIStyled } from "@material-ui/styles"
-const Layout = ({ children, fullWidth }) => {
 
+const Layout = ({ children, fullWidth, toastData }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -26,6 +28,7 @@ const Layout = ({ children, fullWidth }) => {
         <StyledContainer maxWidth="md">{children}</StyledContainer>
       )}
       <Footer></Footer>
+      <Toast toastData={toastData} />
     </Wrapper>
   )
 }
@@ -48,4 +51,11 @@ const StyledContainer = MUIStyled(Container)({
   },
 })
 
-export default Layout
+const mapStateToProps = state => ({
+  toastData: state.toastReducer,
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(Layout)
