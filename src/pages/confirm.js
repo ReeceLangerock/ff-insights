@@ -9,7 +9,7 @@ import { styled as MUIStyled } from "@material-ui/styles"
 
 async function handleSubmit(e) {
   const EMAIL_ID = window.location.search.split("id=")[1].split("&")[0]
-  const response = await confirmEmail({ mutation: "confirm", EMAIL_ID })
+  const response = await confirmEmail({ modifier: "confirm", EMAIL_ID })
   if (response.status === 200) {
     store.dispatch(setToastData("Your email was confirmed successfully", "success"))
   } else {
