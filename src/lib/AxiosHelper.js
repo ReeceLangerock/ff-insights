@@ -47,6 +47,20 @@ export const subscribeToLeagues = async body => {
     )
     return response
   } catch (error) {
+    console.error(error)
+  }
+}
+
+export const confirmEmail = async body => {
+  try {
+    const response = await axios.post(
+      `${ROOT_URL}/email`,
+      JSON.stringify({
+        ...body,
+      })
+    )
+    return response
+  } catch (error) {
     return error
     console.error(error)
   }
