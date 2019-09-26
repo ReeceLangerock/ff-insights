@@ -59,7 +59,7 @@ class League extends React.Component {
       leagueData,
       week,
     } = this.props
-    if (this.state.loading) {
+    if (this.state.loading || !leagueData ) {
       return <Loader text="Loading Matchups..." />
     }
     if (insights[leagueId] && insights[leagueId].status === "not available") {
@@ -95,9 +95,9 @@ class League extends React.Component {
         <LeagueInsights
           topBench={topBench}
           topStarters={topStarters}
-        ></LeagueInsights>
+          ></LeagueInsights>
 
-        <Sharing data={{ insights, leagueData, week, leagueId }} />
+        <Sharing data={{ insights, leagueName: leagueData.leagueName, week, leagueId }} />
       </div>
     )
   }

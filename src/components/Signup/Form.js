@@ -3,9 +3,11 @@ import { styled as MUIStyled } from "@material-ui/styles"
 import { addLeague } from "./../../lib/AxiosHelper"
 import FormItem from "./FormItem"
 import { Button, Card } from "@material-ui/core"
-import Toast from "../General/Toast"
 import Instructions from "./Instructions"
 import { leagueId, email, isPrivate, SWID, ESPN_S2, errors } from "./formData"
+import { setToastData, hideToast } from "./../../redux/actions/toastActions"
+import store from "./../../redux/store"
+import { validateEmail, validateLeagueId } from "./../../lib/formHelper"
 
 export default class Form extends Component {
   constructor(props) {
@@ -20,19 +22,14 @@ export default class Form extends Component {
         ESPN_S2: "",
       },
       error: {},
-      showToast: false,
-      submissionMessage: "",
-      responseType: "",
     }
   }
 
   async validateForm() {
     const { form } = this.state
     const errors = {
-      leagueId: !(form.leagueId.match(/^\d*$/) && form.leagueId.length > 3),
-      email: !form.email.match(
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      ),
+      leagueId: !validateLeagueId(form.leagueId),
+      email: !validateEmail(form.email),
     }
 
     if (form.isPrivate) {
@@ -48,19 +45,18 @@ export default class Form extends Component {
   }
 
   async handleSubmit(e) {
+    store.dispatch(hideToast())
     this.setState({
-      showToast: false,
-      submissionMessage: "",
       error: {},
     })
     e.preventDefault()
     const validationPass = await this.validateForm()
-    let responseType = "error"
+    let type = "error"
     let response = {}
     if (validationPass) {
       response = await addLeague(this.state.form)
       if (response.statusCode === 200) {
-        responseType = "success"
+        type = "success"
       }
       if (response.statusCode === 401) {
         this.setState({ form: { ...this.state.form, isPrivate: true } })
@@ -73,11 +69,9 @@ export default class Form extends Component {
       })
     }
 
-    this.setState({
-      showToast: true,
-      submissionMessage: response.body || "Unknown error type",
-      responseType,
-    })
+    store.dispatch(
+      setToastData(response.body || "Unknown error type", type)
+    )
   }
 
   handleChange(key, value) {
@@ -149,12 +143,6 @@ export default class Form extends Component {
           </p>
         </FormGroup>
 
-        <Toast
-          open={this.state.showToast}
-          handleClose={() => this.setState({ showToast: false })}
-          message={this.state.submissionMessage}
-          responseType={this.state.responseType}
-        ></Toast>
         <StyledButton
           variant="contained"
           size="large"
