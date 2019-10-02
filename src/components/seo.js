@@ -35,6 +35,7 @@ function SEO({ description, lang, meta, title }) {
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
+        { name: "propeller", content: "5465329c0835f5016938fc11d3c11364" },
         {
           name: `description`,
           content: metaDescription,
