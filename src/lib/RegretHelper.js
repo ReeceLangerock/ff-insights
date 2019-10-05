@@ -46,6 +46,7 @@ export const getWorstBenchDecision = async (players, data) => {
     WR: {},
     TE: {},
     QB: {},
+    'D/ST': {}
   }
   starters.forEach(p => {
     if (
@@ -55,8 +56,9 @@ export const getWorstBenchDecision = async (players, data) => {
       badChoice[p.position] = topBenchByPos[p.position]
     }
   })
+
   const badChoiceText = {}
-  const positions = ['QB', 'RB','WR', 'TE']
+  const positions = ['QB', 'RB','WR', 'TE', 'D/ST']
   positions.forEach((pos)=> {
   if(badChoice[pos].id){
     const P = badChoice[pos]
