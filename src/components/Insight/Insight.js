@@ -14,6 +14,7 @@ import Loader from "./../General/Loader"
 import Charts from "./Charts"
 import TopPlayers from "./TopPlayers"
 import { Helmet } from "react-helmet"
+import OptimalLineups from "./OptimalLineups"
 
 class Insight extends Component {
   state = {
@@ -78,7 +79,7 @@ class Insight extends Component {
   }
 
   render() {
-    const { insights, leagueId, matchup, topPlayers,leagueData } = this.props
+    const { insights, leagueId, matchup, topPlayers, leagueData } = this.props
     const insight = insights[leagueId]
       ? insights[leagueId][matchup - 1]
       : undefined
@@ -91,27 +92,38 @@ class Insight extends Component {
     }
 
     return (
-      <Container>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>{`${insight.awayTeam.name} vs. ${insight.homeTeam.name}`}</title>
-          <link
-            rel="canonical"
-            href={`https://insightful.tk/league/?id=${leagueId}`}
+      <>
+        <Container>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>{`${insight.awayTeam.name} vs. ${insight.homeTeam.name}`}</title>
+            <link
+              rel="canonical"
+              href={`https://insightful.tk/league/?id=${leagueId}`}
+            />
+          </Helmet>
+          <Header data={insight} />
+          <Records data={insight} />
+          <SmoothMoves data={insight} parsedInsight={parsedInsight} />
+          <Regrets data={insight} parsedInsight={parsedInsight} />
+          <WhatIf
+            data={insight}
+            parsedInsight={parsedInsight}
+            leagueData={leagueData}
           />
-        </Helmet>
-        <Header data={insight} />
-        <Records data={insight} />
-        <SmoothMoves data={insight} parsedInsight={parsedInsight} />
-        <Regrets data={insight} parsedInsight={parsedInsight} />
-        <WhatIf data={insight} parsedInsight={parsedInsight} leagueData={leagueData}/>
-        <GameNotes data={insight} parsedInsight={parsedInsight} leagueData={leagueData}/>
+          <GameNotes
+            data={insight}
+            parsedInsight={parsedInsight}
+            leagueData={leagueData}
+          />
+        </Container>
         <TopPlayers
           topBench={topPlayers[matchup].bench}
           topStarters={topPlayers[matchup].starters}
         />
+        <OptimalLineups data={insight} />
         {process.env.NODE_ENV !== "development" && <Charts data={insight} />}
-      </Container>
+      </>
     )
   }
 }

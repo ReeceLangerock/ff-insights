@@ -74,7 +74,7 @@ const Player = MUIStyled(Card)({
 })
 
 const Container = styled.div`
-  padding: 1.5rem 1rem;
+margin-top: 2.5rem;
 `
 
 const PlayerContainer = styled.div`

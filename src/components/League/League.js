@@ -8,6 +8,7 @@ import Loader from "./../General/Loader"
 import LeagueInsights from "./LeagueInsights"
 import Sharing from "../General/Sharing"
 import { Helmet } from "react-helmet"
+import OptimalStandings from "./OptimalStandings"
 
 class League extends React.Component {
   state = {
@@ -96,6 +97,7 @@ class League extends React.Component {
           topBench={topBench}
           topStarters={topStarters}
           ></LeagueInsights>
+          <OptimalStandings insights = {insights[leagueId]}/>
 
         <Sharing data={{ insights, leagueName: leagueData.leagueName, week, leagueId }} />
       </div>
