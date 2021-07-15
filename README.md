@@ -2,4 +2,7 @@ This project was meant to generate automated insights for ESPN Fantasy football 
 
 But, development is currently on hold.
 
+App page: https://hungry-liskov-334209.netlify.app/
+Demo league page: https://hungry-liskov-334209.netlify.app/league/?id=324353
+
 * Created with Gatsby 
