@@ -34,6 +34,11 @@ export default class OptimalLineups extends Component {
       awayTeamRoster,
     } = this.props.data
     const data = {}
+    if (!homeOptimalData || !awayOptimalData) {
+      return
+    }
+
+    console.log('here',homeOptimalData, awayOptimalData)
     this.lineupOrder.forEach(pos => {
       if (homeOptimalData.lineup[pos] && awayOptimalData.lineup[pos]) {
         data[pos] = {
@@ -64,6 +69,10 @@ export default class OptimalLineups extends Component {
 
   renderOptimalLineup(team) {
     const { lineups } = this.state
+
+    if (!lineups) {
+      return
+    }
     return Object.keys(lineups).map(p => {
       const pos = lineups[p]
       const table = []
@@ -93,7 +102,9 @@ export default class OptimalLineups extends Component {
   }
   render() {
     const { data } = this.props
-    console.log(data)
+
+    // if missing optim
+    
     return (
       <Container>
         <h1>Optimal Lineups</h1>
